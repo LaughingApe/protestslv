@@ -1,0 +1,93 @@
+/*
+
+████████╗██╗  ██╗███████╗███╗   ███╗███████╗███████╗
+╚══██╔══╝██║  ██║██╔════╝████╗ ████║██╔════╝██╔════╝
+   ██║   ███████║█████╗  ██╔████╔██║█████╗  ███████╗
+   ██║   ██╔══██║██╔══╝  ██║╚██╔╝██║██╔══╝  ╚════██║
+   ██║   ██║  ██║███████╗██║ ╚═╝ ██║███████╗███████║
+   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝╚══════╝
+
+*/
+
+/*******************************
+        Theme Selection
+*******************************/
+
+/* To override a theme for an individual element
+   specify theme name below
+*/
+
+/* Global */
+@site        : 'protests';
+@reset       : 'protests';
+
+/* Elements */
+@button      : 'protests';
+@container   : 'protests';
+@divider     : 'protests';
+@flag        : 'protests';
+@header      : 'protests';
+@icon        : 'protests';
+@image       : 'protests';
+@input       : 'protests';
+@label       : 'protests';
+@list        : 'protests';
+@loader      : 'protests';
+@placeholder : 'protests';
+@rail        : 'protests';
+@reveal      : 'protests';
+@segment     : 'protests';
+@step        : 'protests';
+
+/* Collections */
+@breadcrumb  : 'protests';
+@form        : 'protests';
+@grid        : 'protests';
+@menu        : 'protests';
+@message     : 'protests';
+@table       : 'protests';
+
+/* Modules */
+@accordion   : 'protests';
+@checkbox    : 'protests';
+@dimmer      : 'protests';
+@dropdown    : 'protests';
+@embed       : 'protests';
+@modal       : 'protests';
+@nag         : 'protests';
+@popup       : 'protests';
+@progress    : 'protests';
+@rating      : 'protests';
+@search      : 'protests';
+@shape       : 'protests';
+@sidebar     : 'protests';
+@sticky      : 'protests';
+@tab         : 'protests';
+@transition  : 'protests';
+
+/* Views */
+@ad          : 'protests';
+@card        : 'protests';
+@comment     : 'protests';
+@feed        : 'protests';
+@item        : 'protests';
+@statistic   : 'protests';
+
+/*******************************
+            Folders
+*******************************/
+
+/* Path to theme packages */
+@themesFolder : 'themes';
+
+/* Path to site override folder */
+@siteFolder  : 'site';
+
+
+/*******************************
+         Import Theme
+*******************************/
+
+@import (multiple) "theme.less";
+
+/* End Config */

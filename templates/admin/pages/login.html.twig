@@ -1,0 +1,36 @@
+
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Login{% endblock %}
+
+{% block bodyProperties %}class="login"{% endblock %}
+
+{% block body %}
+    <div class="ui middle aligned center aligned grid login-container">
+        <div class="column">
+        
+            <form class="ui large form" method="POST" action="{{ path('adminLogin') }}">
+                {% if error != '' %}
+                <div class="ui visible error message">Wrong username and/or password!</div>
+                {% endif %}
+                <div class="ui segment">
+                    <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" id="username" name="_username" autocomplete="off" placeholder="Username">
+                    </div>
+                    </div>
+                    <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" id="password" name="_password" placeholder="Password">
+                    </div>
+                    </div>
+                    <button type="submit" class="ui fluid large blue submit button">Login</button>
+                </div>
+
+            </form>
+        
+        </div>
+    </div>
+{% endblock %}

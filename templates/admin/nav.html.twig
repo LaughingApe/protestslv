@@ -1,0 +1,14 @@
+<div class="ui sidebar left vertical inverted large menu">
+  <a class="item" href="{{ path('adminIndex') }}">Home</a>
+  <a class="item">Website Content</a>
+  <a class="item">Shop</a>
+  <a class="item" href="{{ path('adminLogout') }}">Log out</a>
+</div>
+
+
+
+<script>
+  function toggleMenuVisible(){
+    $('.ui.sidebar').sidebar('toggle');
+  }
+</script>

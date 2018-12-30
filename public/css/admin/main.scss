@@ -1,0 +1,42 @@
+
+body{
+    min-height: 100vh;
+
+    &.login{
+        background-color: #eee;
+    }
+
+    .pusher{
+        min-height: 100vh;
+        .content-container{
+            background-color: #dadada;
+            min-height: 100vh;
+        }
+    }
+    
+}
+
+#nav-but{
+    position: fixed;
+    top: 50px;
+    z-index: 1;
+    width: 50px;
+}
+
+.login-container{
+    min-height: 100%;
+    & > .column{
+        max-width: 80%;
+        width: 450px !important;
+        align-self: center !important;
+    }
+}
+
+.ui.button{
+    &.violet.protest{
+        background-color: #54365c;
+        &:hover{
+            background-color: #422a49;
+        }
+    }
+}

@@ -1,3 +1,18 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\PagesController::index
+
+adminLogout:
+    path: /admin/logout
+
+adminLogin:
+    path: /admin/login
+    controller: App\Controller\SecurityController::login
+    defaults:
+        template: 'admin/login.html.twig'
+
+adminIndex:
+    path: /admin
+    controller: App\Controller\AdminController::index
+    defaults:
+        template: 'admin/index.html.twig'

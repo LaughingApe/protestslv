@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "HK Grotesk";
+  src: url("assets/fonts/HKGrotesk/HKGrotesk-Regular.otf") format("otf"); }
+@font-face {
+  font-family: "HK Grotesk";
+  font-weight: bold;
+  src: url("assets/fonts/HKGrotesk/HKGrotesk-Bold.otf") format("otf"); }
+@font-face {
+  font-family: "HK Grotesk";
+  font-style: italic;
+  src: url("assets/fonts/HKGrotesk/HKGrotesk-Italic.otf") format("otf"); }
+* {
+  box-sizing: border-box; }
+
+body {
+  min-height: 100vh; }
+
+.ui.button.violet.protest {
+  background-color: #54365c; }
+  .ui.button.violet.protest:hover {
+    background-color: #422a49; }
+
+.button.custom {
+  display: block; }
+
+.welcome-view {
+  background-color: #54365c !important; }
+
+.welcome-block {
+  height: 80vh; }
+
+.footer {
+  padding: 70px 0px !important; }
+
+/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,17 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}Welcome!{% endblock %}
+
+{% block body %}
+    {% include "admin/nav.html.twig" %}
+    <div class="dimmed pusher">
+        <div class="ui button right big black attached" id="nav-but" onclick="toggleMenuVisible()">
+            <i class="content icon"></i>
+        </div>
+        <div class="content-container">Content</div>
+    </div>
+    
+
+
+{% endblock %}
