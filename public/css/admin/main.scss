@@ -1,10 +1,7 @@
 
 body{
     min-height: 100vh;
-
-    &.login{
-        background-color: #eee;
-    }
+    background-color: #eee;
 
     .pusher{
         min-height: 100vh;
@@ -17,10 +14,25 @@ body{
 }
 
 #nav-but{
-    position: fixed;
-    top: 50px;
-    z-index: 1;
-    width: 50px;
+    i{
+        margin: 0px;
+    }
+}
+
+#bigscreen-menu{
+    display: none;
+    @media only screen and (min-width: 992px) {
+        display: block;
+    } 
+}
+#standard-menu{
+    display: block;
+    @media only screen and (min-width: 992px) {
+        display: none;
+    } 
+    &.sidebar{
+        z-index: 1000;
+    }
 }
 
 .login-container{
@@ -39,4 +51,47 @@ body{
             background-color: #422a49;
         }
     }
+}
+
+.content-with-menu{
+    .container{
+        padding: 70px 0px;
+        @media only screen and (min-width: 992px) {
+            padding: 30px 0px;
+        }
+        
+    }
+    @media only screen and (min-width: 992px) {
+        padding-left: 18rem;
+    }
+    
+}
+
+.add-tag-field{
+    width: auto !important;
+}
+
+.hidden-field{
+    display: none !important;
+}
+#tagList{
+    & > .label{
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+}
+
+.note-editor.note-frame {
+    border: 1px solid rgba(34,36,38,.15);
+    border-radius: .28571429rem;
+    overflow: hidden;
+}
+
+.articleDescription{
+    max-height: 120px;
+    overflow: hidden;
+}
+
+.removeGalleryImage{
+
 }

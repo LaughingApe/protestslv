@@ -1,0 +1,176 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}New Article{% endblock %}
+
+
+{% block body %}
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <a href="{{ path('adminArticles') }}" class="section">Articles</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">New Article</div>
+                </div>
+
+
+                <h1 class="ui header">
+                    New Article
+                    <div class="sub header">Add a new article</div>
+                </h1>
+
+                <div class="ui divider"></div>
+
+                {{ form_start(form, { 'attr' : { 'class': 'ui form', 'onsubmit': 'submitted();' } }) }}
+                    {{ form_errors(form) }}
+                    
+                    <div class="field">
+                        {{ form_label(form.author) }}
+                        {{ form_errors(form.author) }}
+                        {{ form_widget(form.author, { 'attr' : { 'class': 'ui dropdown' } }) }}
+                        {{ form_help(form.author) }}
+                    </div>
+                    <div class="field">
+                        {{ form_label(form.title) }}
+                        {{ form_errors(form.title) }}
+                        {{ form_widget(form.title) }}
+                        {{ form_help(form.title) }}
+                    </div>
+                    <div class="field">
+                        <label for="form_link" class="required">
+                            URL 
+                            <span data-inverted="" data-tooltip="Use only lowercase English letters and dashes ('-')!" data-variation="wide" data-position="right center">
+                                <i class="question circle icon"></i>
+                            </span>
+                        </label>
+                        {{ form_errors(form.link) }}
+                        {{ form_widget(form.link) }}
+                        {{ form_help(form.link) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.image) }}
+                        {{ form_errors(form.image) }}
+                        {{ form_widget(form.image) }}
+                        {{ form_help(form.image) }}
+                    </div>
+                    
+                    <div class="field">
+                        {{ form_label(form.text) }}
+                        {{ form_errors(form.text) }}
+                        {{ form_widget(form.text, { 'attr' : { 'class': 'summernote' } }) }}
+                        {{ form_help(form.text) }}
+                    </div>
+                    
+                    <div class="field hidden-field">
+                        {{ form_label(form.tags) }}
+                        {{ form_errors(form.tags) }}
+                        {{ form_widget(form.tags) }}
+                        {{ form_help(form.tags) }}
+                    </div>
+
+                    <div class="field" id="tagList"></div>
+
+                    <div class="field">
+                        <div class="ui action input add-tag-field">
+                            <input id="addTagInput" type="text" placeholder="">
+                            <button type="button" class="ui grey button" onclick="addTag();">Add tag</button>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.images) }}
+                        {{ form_errors(form.images) }}
+                        {{ form_widget(form.images) }}
+                        {{ form_help(form.images) }}
+                    </div>
+            
+                    {{ form_widget(form.save, { 'attr' : { 'class': 'ui positive button' } }) }}
+
+                {{ form_end(form) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+
+    var tags = [];
+
+    function renderTagList(){
+        document.getElementById('tagList').innerHTML = "";
+        document.getElementById('form_tags').value = "[";
+        for(var i = 0; i<tags.length; i++){
+            document.getElementById('tagList').innerHTML += "<a class='ui grey label'> " + tags[i] + " <i class='delete icon' onclick='removeTag(\"" + tags[i] + "\");'></i> </a>";
+            if(i>0) document.getElementById('form_tags').value += ",";
+            document.getElementById('form_tags').value += '"' + tags[i] + '"';
+        }
+        document.getElementById('form_tags').value += "]";
+    }
+
+    function addTag(){
+        tags.push( document.getElementById('addTagInput').value ); 
+        document.getElementById('addTagInput').value = "";
+        renderTagList();
+    }
+
+    function removeTag(tag){
+        var found = false;
+        for(var i = 0; i<tags.length; i++){
+            if( tags[i]==tag ) found = true;
+            if( found && i<tags.length-1 ) tags[i] = tags[i+1]; 
+        }
+        if( found ) tags.pop();
+        renderTagList();
+    }
+
+    function submitted(){
+        $("#form_save").addClass("loading");
+        $("#form_save").prop('disabled', true);
+        return true;
+    }
+
+
+    $(document).ready(function() {
+
+        
+        $('.summernote').summernote({
+            height: 200,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['color', ['color']],
+                ['attach', ['link','picture','video','table']],
+                ['other', ['fullscreen','codeview','undo','redo','help']]
+            ],
+            callbacks: {
+                onChange: function(contents, $editable) {
+                    //console.log('onChange:', contents, $editable);
+                    $("#form_text").html( contents );
+                }
+            }
+        });
+        
+        $('select.dropdown').dropdown();
+
+        document.getElementById('addTagInput').addEventListener('keypress', function(event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                addTag();
+            }
+        });
+
+    });
+</script>
+{% endblock %}

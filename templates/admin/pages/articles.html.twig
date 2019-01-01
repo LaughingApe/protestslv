@@ -1,0 +1,102 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">Articles</div>
+                </div>
+
+                <h1 class="ui header">Articles
+                    <div class="sub header">Manage news articles of the website</div>
+                </h1>
+
+                <div class="ui hidden divider"></div>
+
+                <a href="{{ path('adminArticlesNew') }}" class="ui labeled icon positive button">
+                    <i class="plus icon"></i>
+                    Add an article
+                </a>
+
+                <div class="ui hidden divider"></div>
+
+                <div class="ui cards">
+                    {% for article in articles %}
+                        <div class="card">
+                            <div class="image">
+                                <img src="/assets/uploads/{{ article.image }}">
+                            </div>
+                            <div class="content">
+                                
+                                <a href="#" class="header">{{ article.title }}</a>
+                                <div class="meta">
+                                    <span class="date">{{ article.time|date('d.m.Y H:i') }}</span><br/><span>By {{ article.author }}</span>
+                                </div>
+                                <div class="description articleDescription">{{ article.text|raw }}</div>
+                            </div>
+                            <div class="extra content">
+                                <div class="ui two buttons">
+                                    <a href="{{ path('adminArticlesEdit', {"id": article.id}) }}" class="ui basic blue button">Edit</a>
+                                    <button type="button" onclick="tryDelete({{ article.id }});" class="ui basic red button">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+
+
+            </div>
+
+    </div>
+
+    {% for article in articles %}
+        <div class="ui mini modal" id="tryDeleteModal{{ article.id }}">
+            <div class="ui header">
+                Delete Article?
+            </div>
+            <div class="center aligned content">
+                <p>Do you really want to delete article titled "{{ article.title }}"?</p>
+            </div>
+            <div class="actions">
+                <button type="button" onclick="closeModal({{ article.id }});" class="ui cancel button">
+                    <i class="remove icon"></i>
+                    No
+                </button>
+                <button type="button" onclick="deleteArticle({{ article.id }})" class="ui red ok button">
+                    <i class="checkmark icon"></i>
+                    Yes
+                </button>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+    // path('adminArticlesDelete', {"id": article.id}) 
+    function closeModal(id){
+        $('#tryDeleteModal'+id).modal('hide');
+    }
+    function tryDelete(id){
+        $('#tryDeleteModal'+id).modal('show');
+    }
+    function deleteArticle(id){
+        window.location.href = "/admin/articles/delete/" + id;
+    }
+</script>
+{% endblock %}

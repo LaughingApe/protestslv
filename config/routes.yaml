@@ -15,4 +15,38 @@ adminIndex:
     path: /admin
     controller: App\Controller\AdminController::index
     defaults:
-        template: 'admin/index.html.twig'
+        template: 'admin/pages/index.html.twig'
+
+adminArticles:
+    path: /admin/articles
+    controller: App\Controller\AdminController::articles
+    defaults:
+        template: 'admin/pages/articles.html.twig'
+
+adminArticlesNew:
+    path: /admin/articles/new
+    controller: App\Controller\AdminController::newArticle
+    defaults:
+        template: 'admin/pages/newArticle.html.twig'
+
+adminArticlesEdit:
+    path: /admin/articles/edit/{id}
+    controller: App\Controller\AdminController::editArticle
+    defaults:
+        template: 'admin/pages/editArticle.html.twig'
+    requirements:
+        id: '\d+'
+
+adminArticlesDelete:
+    path: /admin/articles/delete/{id}
+    controller: App\Controller\AdminController::deleteArticle
+    requirements:
+        id: '\d+'
+
+adminArticlesRemoveImage:
+    path: /admin/articles/remove-image
+    controller: App\Controller\AdminController::removeArticleImage
+
+adminArticlesRemoveImages:
+    path: /admin/articles/remove-images
+    controller: App\Controller\AdminController::removeArticleImages
