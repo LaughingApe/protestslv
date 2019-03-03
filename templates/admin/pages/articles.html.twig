@@ -12,7 +12,6 @@
             <div class="ui text container">
 
                 
-
                 <div class="ui breadcrumb">
                     <a href="{{ path('adminIndex') }}" class="section">Home</a>
                     <i class="right angle icon divider"></i>
@@ -27,7 +26,7 @@
 
                 <a href="{{ path('adminArticlesNew') }}" class="ui labeled icon positive button">
                     <i class="plus icon"></i>
-                    Add an article
+                    Add Article
                 </a>
 
                 <div class="ui hidden divider"></div>
@@ -42,7 +41,12 @@
                                 
                                 <a href="#" class="header">{{ article.title }}</a>
                                 <div class="meta">
-                                    <span class="date">{{ article.time|date('d.m.Y H:i') }}</span><br/><span>By {{ article.author }}</span>
+                                    <span class="date">{{ article.time|date('d.m.Y H:i') }}</span> 
+                                    <a onclick="try{% if article.published is not same as(1) %}Publish{% else %}Hide{% endif %}({{article.id}});" data-inverted="" data-tooltip="Article is currently {% if article.published is not same as(1) %}hidden{% else %}published{% endif %}" data-variation="wide" data-position="right center" >
+                                        <i class="fas fa-eye{% if article.published is not same as(1) %}-slash{% endif %}"></i>
+                                    </a>
+                                    <br/>
+                                    <span>By {{ article.author }}</span>
                                 </div>
                                 <div class="description articleDescription">{{ article.text|raw }}</div>
                             </div>
@@ -68,15 +72,53 @@
                 Delete Article?
             </div>
             <div class="center aligned content">
-                <p>Do you really want to delete article titled "{{ article.title }}"?</p>
+                <p>Do you really want to <b>permanently</b> delete article titled "{{ article.title }}"?</p>
             </div>
             <div class="actions">
                 <button type="button" onclick="closeModal({{ article.id }});" class="ui cancel button">
                     <i class="remove icon"></i>
                     No
                 </button>
-                <button type="button" onclick="deleteArticle({{ article.id }})" class="ui red ok button">
-                    <i class="checkmark icon"></i>
+                <button type="button" onclick="deleteArticle({{ article.id }});" class="ui red ok button">
+                    <i class="trash icon"></i>
+                    Yes
+                </button>
+            </div>
+        </div>
+
+        <div class="ui mini modal" id="tryPublishModal{{ article.id }}">
+            <div class="ui header">
+                Publish article?
+            </div>
+            <div class="center aligned content">
+                <p>Do you want to publish article titled "{{ article.title }}"?</p>
+            </div>
+            <div class="actions">
+                <button type="button" onclick="closeModal({{ article.id }});" class="ui cancel button">
+                    <i class="remove icon"></i>
+                    No
+                </button>
+                <button type="button" onclick="publishArticle({{ article.id }});" class="ui green ok button">
+                    <i class="check icon"></i>
+                    Yes
+                </button>
+            </div>
+        </div>
+
+        <div class="ui mini modal" id="tryHideModal{{ article.id }}">
+            <div class="ui header">
+                Hide article?
+            </div>
+            <div class="center aligned content">
+                <p>Do you want to hide article titled "{{ article.title }}"?</p>
+            </div>
+            <div class="actions">
+                <button type="button" onclick="closeModal({{ article.id }});" class="ui cancel button">
+                    <i class="remove icon"></i>
+                    No
+                </button>
+                <button type="button" onclick="hideArticle({{ article.id }});" class="ui blue ok button">
+                    <i class="check icon"></i>
                     Yes
                 </button>
             </div>
@@ -91,9 +133,26 @@
     // path('adminArticlesDelete', {"id": article.id}) 
     function closeModal(id){
         $('#tryDeleteModal'+id).modal('hide');
+        $('#tryPublishModal'+id).modal('hide');
+        $('#tryHideModal'+id).modal('hide');
     }
     function tryDelete(id){
         $('#tryDeleteModal'+id).modal('show');
+    }
+
+    function tryPublish(id){
+        $('#tryPublishModal'+id).modal('show');
+    }
+    function tryHide(id){
+        $('#tryHideModal'+id).modal('show');
+    }
+
+
+    function hideArticle(id){
+        window.location.href = "/admin/articles/visibility?action=0&id=" + id;
+    }
+    function publishArticle(id){
+        window.location.href = "/admin/articles/visibility?action=1&id=" + id;
     }
     function deleteArticle(id){
         window.location.href = "/admin/articles/delete/" + id;

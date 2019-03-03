@@ -1,0 +1,79 @@
+{% extends "base.html.twig" %}
+
+
+
+{% block title %}{{ c[35]|raw }} | {% endblock %}
+
+
+
+{% block body %}
+
+    {% include "nav.html.twig" %}
+
+    <div class="standard-content">
+        <div class="ui text container">
+            <h1 class="ui horizontal divider huge header">{{ c[35]|raw }}</h1>
+
+            <div class="document-grid">
+                {% for document in documents %}
+                    {% if document.type is same as (0) %}
+                        <a href="{{ path('openFile', {file: document.file}) }}" target="_blank" class="doc">
+                            <div class="icon">
+                                <i class="fas fa-{{document.icon}}"></i>
+                            </div>
+                            <div class="title">
+                            {{document.name}}
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <h2 class="ui centered header">{{ c[58] }}</h2>
+
+            <div class="document-list">
+                {% for document in documents %}
+                    {% if document.type is same as (1) %}
+                        <a href="{{ path('openFile', {file: document.file}) }}" target="_blank" class="list-entry">
+                            <div class="icon">
+                                <i class="fas fa-{{document.icon}}"></i>
+                            </div>
+                            <div class="content">
+                                <div class="header">{{document.name}}</div>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+{% include "navjs.html.twig" %}
+
+<script>
+
+/*$(document).ready(function(){
+    $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        autoplay:true,
+        autoplayTimeout:2000,
+        autoplayHoverPause:true,
+        responsive:{
+            0:{
+                items:1
+            }
+        }
+    })
+});*/
+
+</script>
+{% endblock %}

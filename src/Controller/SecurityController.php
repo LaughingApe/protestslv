@@ -23,11 +23,11 @@ class SecurityController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $newAdmin = new Admin();
-        $newAdmin->setUsername( "neniks" );
-        $newAdmin->setName( "Neniks" );
+        $newAdmin->setUsername( "niks" );
+        $newAdmin->setName( "Niks" );
 
-        $newAdmin->setPassword( $encoder->encodePassword($newAdmin, "neniks") );
-        $newAdmin->setRoles( array("ROLE_ADMIN") );
+        $newAdmin->setPassword( $encoder->encodePassword($newAdmin, "niks") );
+        $newAdmin->setRoles( array("ROLE_SUPERADMIN") );
 
         $entityManager->persist($newAdmin);
         $entityManager->flush();//*/

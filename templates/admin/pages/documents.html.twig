@@ -1,0 +1,118 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}Documents{% endblock %}
+
+{% block body %}
+
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">Documents</div>
+                </div>
+
+                <h1 class="ui header">Documents
+                    <div class="sub header">Manage orgnisation's public documents</div>
+                </h1>
+
+                <div class="ui hidden divider"></div>
+
+                <a href="{{ path('adminDocumentsNew') }}" class="ui labeled icon positive button">
+                    <i class="plus icon"></i>
+                    Add Document
+                </a>
+
+                <div class="ui hidden divider"></div>
+
+                <table class="ui celled table">
+                    <thead>
+                        <tr><th>Id</th>
+                        <th>Type</th>
+                        <th>Icon</th>
+                        <th>Name</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr></thead>
+                    <tbody>
+                        {% set n = documents|length %}
+                        {% set n = n - 1 %}
+                        {% for i in 0..n %}
+                            
+                            <tr>
+                                <td>{{ cycle(documents, i).id }}</td>
+                                <td>{{ categories[ cycle(documents, i).type ] }}</td>
+                                <td style="text-align: center; font-size: 1.3em;"><i class="fas fa-{{ cycle(documents, i).icon }}"></i></td>
+                                <td>{{ cycle(documents, i).name }}</td>
+                                <td style="text-align: center;">
+                                    {% set pre = i - 1 %}
+                                    {% set nex = i + 1 %}
+                                    {% if i is not same as(0) %}
+                                        <a onclick="swapElements({{ cycle(documents, i).id }}, {{ cycle(documents, pre).id }});" class="change-order-button"><i class="fas fa-arrow-alt-circle-up"></i></a><br/>
+                                    {% endif %}
+                                    {% if i is not same as(n) %}
+                                        <a onclick="swapElements({{ cycle(documents, i).id }}, {{ cycle(documents, nex).id }});" class="change-order-button"><i class="fas fa-arrow-alt-circle-down"></i></a>
+                                    {% endif %}
+                                </td>
+                                <td class="selectable warning"><a href="{{ path('adminDocumentsEdit', {'id': cycle(documents, i).id}) }}">Edit</a></td>
+                                <td class="selectable negative"><a href="#" onclick="tryDelete({{ cycle(documents, i).id }});">Remove</a></td>
+                            </td>
+                            
+                        {% endfor %}
+                    </tbody>
+                </table>
+                    
+            </div>
+
+    </div>
+
+    {% for document in documents %}
+        <div class="ui mini modal" id="tryDeleteModal{{ document.id }}">
+            <div class="ui header">
+                Delete Document?
+            </div>
+            <div class="center aligned content">
+                <p>Do you really want to <b>permanently</b> delete document titled "{{ document.name }}"?</p>
+            </div>
+            <div class="actions">
+                <button type="button" onclick="closeModal({{ document.id }});" class="ui cancel button">
+                    <i class="remove icon"></i>
+                    No
+                </button>
+                <button type="button" onclick="deleteDocument({{ document.id }})" class="ui red ok button">
+                    <i class="trash icon"></i>
+                    Yes
+                </button>
+            </div>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+    function closeModal(id){
+        $('#tryDeleteModal'+id).modal('hide');
+    }
+    function tryDelete(id){
+        $('#tryDeleteModal'+id).modal('show');
+    }
+    function deleteDocument(id){
+        window.location.href = "/admin/documents/delete/" + id;
+    }
+
+    function swapElements(a, b){
+        window.location.href = "/admin/documents/swap?id0=" + a + "&id1=" + b;
+    }
+</script>
+{% endblock %}

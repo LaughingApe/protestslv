@@ -1,6 +1,127 @@
+
 index:
-    path: /
+    path: /{_locale}
     controller: App\Controller\PagesController::index
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
+article:
+    path: /{_locale}/news/{article_url}
+    controller: App\Controller\PagesController::article
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+      article_url: '[a-z\-]+'
+
+articles:
+    path: /{_locale}/news
+    controller: App\Controller\PagesController::articles
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
+author:
+    path: /{_locale}/author/{author}
+    controller: App\Controller\PagesController::author
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+      author: '[a-zA-Z\_]+'
+
+about:
+    path: /{_locale}/about-us
+    controller: App\Controller\PagesController::about
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
+contact:
+    path: /{_locale}/contact-us
+    controller: App\Controller\PagesController::contact
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
+donate:
+    path: /{_locale}/donate
+    controller: App\Controller\PagesController::donate
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
+events:
+    path: /{_locale}/events
+    controller: App\Controller\PagesController::events
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
+event:
+    path: /{_locale}/events/{id}
+    controller: App\Controller\PagesController::event
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+      id: '\d+'
+
+join:
+    path: /{_locale}/join
+    controller: App\Controller\PagesController::join
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
+tag:
+    path: /{_locale}/tag/{tag}
+    controller: App\Controller\PagesController::tag
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+      tag: '[^/]+'
+
+openFile:
+    path: /open-file/{file}
+    controller: App\Controller\PagesController::openFile
+    requirements:
+      author: '[a-zA-Z0-9\_]+'
+
+documents:
+    path: /{_locale}/documents
+    controller: App\Controller\PagesController::documents
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
+partners:
+    path: /{_locale}/partners
+    controller: App\Controller\PagesController::partners
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
+privacy:
+    path: /{_locale}/privacy
+    controller: App\Controller\PagesController::privacy
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
+
 
 adminLogout:
     path: /admin/logout
@@ -19,19 +140,19 @@ adminIndex:
 
 adminArticles:
     path: /admin/articles
-    controller: App\Controller\AdminController::articles
+    controller: App\Controller\ArticleController::articles
     defaults:
         template: 'admin/pages/articles.html.twig'
 
 adminArticlesNew:
     path: /admin/articles/new
-    controller: App\Controller\AdminController::newArticle
+    controller: App\Controller\ArticleController::newArticle
     defaults:
         template: 'admin/pages/newArticle.html.twig'
 
 adminArticlesEdit:
     path: /admin/articles/edit/{id}
-    controller: App\Controller\AdminController::editArticle
+    controller: App\Controller\ArticleController::editArticle
     defaults:
         template: 'admin/pages/editArticle.html.twig'
     requirements:
@@ -39,14 +160,151 @@ adminArticlesEdit:
 
 adminArticlesDelete:
     path: /admin/articles/delete/{id}
-    controller: App\Controller\AdminController::deleteArticle
+    controller: App\Controller\ArticleController::deleteArticle
     requirements:
         id: '\d+'
 
+adminArticlesVisibility:
+    path: /admin/articles/visibility
+    controller: App\Controller\ArticleController::visibilityArticle
+
 adminArticlesRemoveImage:
     path: /admin/articles/remove-image
-    controller: App\Controller\AdminController::removeArticleImage
+    controller: App\Controller\ArticleController::removeArticleImage
 
 adminArticlesRemoveImages:
     path: /admin/articles/remove-images
-    controller: App\Controller\AdminController::removeArticleImages
+    controller: App\Controller\ArticleController::removeArticleImages
+
+adminMyAccount:
+    path: /admin/my-account
+    controller: App\Controller\AdminController::myAccount
+    defaults:
+        template: 'admin/pages/myAccount.html.twig'
+
+adminManageAdmins:
+    path: /admin/manage-admins
+    controller: App\Controller\ManageAdminsController::admins
+    defaults:
+        template: 'admin/pages/manageAdmins.html.twig'
+
+adminManageAdminsRoles:
+    path: /admin/manage-admins/switch-roles
+    controller: App\Controller\ManageAdminsController::switchRoles
+
+
+adminManageAdminsNew:
+    path: /admin/manage-admins/new
+    controller: App\Controller\ManageAdminsController::newAdmin
+    defaults:
+        template: 'admin/pages/newAdmin.html.twig'
+
+adminManageAdminsDelete:
+    path: /admin/manage-admins/delete/{id}
+    controller: App\Controller\ManageAdminsController::deleteAdmin
+    requirements:
+        id: '\d+'
+
+adminDocuments:
+    path: /admin/documents
+    controller: App\Controller\DocumentController::documents
+    defaults:
+        template: 'admin/pages/documents.html.twig'
+
+adminDocumentsNew:
+    path: /admin/documents/new
+    controller: App\Controller\DocumentController::newDocument
+    defaults:
+        template: 'admin/pages/newDocument.html.twig'
+
+adminDocumentsEdit:
+    path: /admin/documents/edit/{id}
+    controller: App\Controller\DocumentController::editDocument
+    requirements:
+        id: '\d+'
+
+adminDocumentsDelete:
+    path: /admin/documents/delete/{id}
+    controller: App\Controller\DocumentController::deleteDocument
+    requirements:
+        id: '\d+'
+
+adminDocumentsSwap:
+    path: /admin/documents/swap
+    controller: App\Controller\DocumentController::swapDocument
+
+adminPartners:
+    path: /admin/partners
+    controller: App\Controller\PartnerController::partners
+    defaults:
+        template: 'admin/pages/partners.html.twig'
+
+adminPartnersNew:
+    path: /admin/partners/new
+    controller: App\Controller\PartnerController::newPartner
+    defaults:
+        template: 'admin/pages/newPartner.html.twig'
+
+adminPartnersEdit:
+    path: /admin/partners/edit/{id}
+    controller: App\Controller\PartnerController::editPartner
+    requirements:
+        id: '\d+'
+
+adminPartnersDelete:
+    path: /admin/partners/delete/{id}
+    controller: App\Controller\PartnerController::deletePartner
+    requirements:
+        id: '\d+'
+
+adminPartnersSwap:
+    path: /admin/partners/swap
+    controller: App\Controller\PartnerController::swapPartner
+
+adminEvents:
+    path: /admin/events
+    controller: App\Controller\EventController::events
+    defaults:
+        template: 'admin/pages/events.html.twig'
+
+adminEventsNew:
+    path: /admin/events/new
+    controller: App\Controller\EventController::newEvent
+    defaults:
+        template: 'admin/pages/newDocument.html.twig'
+
+adminEventsEdit:
+    path: /admin/events/edit/{id}
+    controller: App\Controller\EventController::editEvent
+    requirements:
+        id: '\d+'
+
+adminEventsDelete:
+    path: /admin/events/delete/{id}
+    controller: App\Controller\EventController::deleteEvent
+    requirements:
+        id: '\d+'
+
+adminEventsSwap:
+    path: /admin/events/swap
+    controller: App\Controller\EventController::swapEvent
+
+adminContents:
+    path: /admin/content
+    controller: App\Controller\ContentController::contents
+    defaults:
+        template: 'admin/pages/contents.html.twig'
+
+adminContentsNew:
+    path: /admin/content/new
+    controller: App\Controller\ContentController::newContent
+    defaults:
+        template: 'admin/pages/newContent.html.twig'
+
+adminContentsEdit:
+    path: /admin/content/edit/{id}
+    controller: App\Controller\ContentController::editContent
+    defaults:
+        template: 'admin/pages/editContent.html.twig'
+    requirements:
+        id: '\d+'

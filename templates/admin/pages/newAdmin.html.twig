@@ -1,0 +1,154 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}New Article{% endblock %}
+
+
+{% block body %}
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <a href="{{ path('adminManageAdmins') }}" class="section">Manage Admins</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">New Editor/Admin</div>
+                </div>
+
+
+                <h1 class="ui header">
+                    New Editor/Admin
+                    <div class="sub header">Create a new Editor/Admin account</div>
+                </h1>
+
+                <div class="ui divider"></div>
+
+                {{ form_start(form, { 'attr' : { 'class': 'ui form', 'onsubmit': 'submitted();' } }) }}
+                    {{ form_errors(form) }}
+                    
+                    <div class="field">
+                        {{ form_label(form.name) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="field">
+                        <label for="form_link" class="required">
+                            Username 
+                            <span data-inverted="" data-tooltip="Used to log into the system. Will be visible in URLs." data-variation="wide" data-position="right center">
+                                <i class="question circle icon"></i>
+                            </span>
+                        </label>
+                        {{ form_errors(form.username) }}
+                        {{ form_widget(form.username) }}
+                        {{ form_help(form.username) }}
+                    </div>
+
+                    <div class="field" id="passwordFirstField">
+                        {{ form_label(form.password.first) }}
+                        {{ form_errors(form.password.first) }}
+                        {{ form_widget(form.password.first, { 'attr' : { 'oninput': 'comparePasswords(false);'  } }) }}
+                        {{ form_help(form.password.first) }}
+                    </div>
+                    <div class="field" id="passwordSecondField">
+                        {{ form_label(form.password.second) }}
+                        {{ form_errors(form.password.second) }}
+                        {{ form_widget(form.password.second, { 'attr' : { 'oninput': 'comparePasswords(false);'  } }) }}
+                        {{ form_help(form.password.second) }}
+                    </div>
+            
+                    {{ form_widget(form.save, { 'attr' : { 'class': 'ui positive button' } }) }}
+
+                {{ form_end(form) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+
+    function comparePasswords( full ){
+        if( document.getElementById('form_password_second').value != ""  ){
+            if( document.getElementById('form_password_first').value != document.getElementById('form_password_second').value ){
+                if( $("#passwordFirstField").hasClass("error") == false ){ 
+                    $("#passwordFirstField").addClass("error");
+                    $("#passwordSecondField").addClass("error");
+                }
+            } else {
+                if( $("#passwordFirstField").hasClass("error") ){ 
+                    $("#passwordFirstField").removeClass("error");
+                    $("#passwordSecondField").removeClass("error");
+                }
+            }
+        } else if( document.getElementById('form_password_first').value == "" ){
+            if( $("#passwordFirstField").hasClass("error") ){ 
+                $("#passwordFirstField").removeClass("error");
+                $("#passwordSecondField").removeClass("error");
+            }
+        }
+    }
+
+    function submitted(){
+        /*if( $('.ui.form').hasClass("error")==false ){
+            $("#form_save").addClass("loading");
+            $("#form_save").prop('disabled', true);*/
+            return true;
+        //} else return false;
+    }
+
+
+    $(document).ready(function() {
+        
+        $('.ui.form')
+            .form({
+                fields: {
+                    form_name: {
+                        identifier: 'form_name',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter a Display name'
+                        }
+                        ]
+                    },
+                    form_username: {
+                        identifier: 'form_username',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter a Username'
+                        }
+                        ]
+                    },
+                    form_password_first: {
+                        identifier: 'form_password_first',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter a Password'
+                        }
+                        ]
+                    },
+                    form_password_second: {
+                        identifier: 'form_password_second',
+                        rules: [
+                        {
+                            type   : 'match[form_password_first]',
+                            prompt : 'Passwords do not match'
+                        }
+                        ]
+                    }
+                }
+            });
+    });
+</script>
+{% endblock %}

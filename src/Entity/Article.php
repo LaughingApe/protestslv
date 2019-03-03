@@ -59,6 +59,16 @@ class Article
      */
     private $link;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $published;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -156,6 +166,30 @@ class Article
     public function setLink(string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPublished(): ?int
+    {
+        return $this->published;
+    }
+
+    public function setPublished(int $published): self
+    {
+        $this->published = $published;
 
         return $this;
     }

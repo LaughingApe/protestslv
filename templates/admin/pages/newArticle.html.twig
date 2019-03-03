@@ -60,6 +60,13 @@
                         {{ form_widget(form.image) }}
                         {{ form_help(form.image) }}
                     </div>
+
+                    <div class="field">
+                        {{ form_label(form.description) }}
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description) }}
+                        {{ form_help(form.description) }}
+                    </div>
                     
                     <div class="field">
                         {{ form_label(form.text) }}
@@ -89,6 +96,12 @@
                         {{ form_errors(form.images) }}
                         {{ form_widget(form.images) }}
                         {{ form_help(form.images) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_errors(form.published) }}
+                        {{ form_widget(form.published, { 'attr' : { 'class': 'ui dropdown' } }) }}
+                        {{ form_help(form.published) }}
                     </div>
             
                     {{ form_widget(form.save, { 'attr' : { 'class': 'ui positive button' } }) }}
@@ -163,6 +176,7 @@
         });
         
         $('select.dropdown').dropdown();
+        
 
         document.getElementById('addTagInput').addEventListener('keypress', function(event) {
             if (event.keyCode == 13) {

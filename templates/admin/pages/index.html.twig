@@ -15,6 +15,100 @@
                 <div class="active section">Home</div>
             </div>
 
+            <div class="home-grid">
+                
+                <div class="box">
+                    <div class="ui top attached segment" tabindex="0">
+                        <h3 class="ui header">
+                            <div class="sub header">Latest</div>
+                            Articles
+                        </h3>
+                        <div class="ui divider"></div>
+                        {% set i = 0 %}
+                        {% set break = false %}
+                        {% for article in articles if not break %}
+                            <div style="margin-bottom: 12px;">
+                                <a href="{{ path('adminArticlesEdit', {"id": article.id}) }}"><h4>{{ article.title }}</h4></a> 
+                                <small><a href="{{ path('author', {author: article.author}) }}" target="_blank" class="author">{{ article.author }}</a>, {{ article.time|date('d.m.Y H:i') }} </small>
+                                <span style="color: grey; font-size: 0.9em; margin-left: 2px;"data-inverted="" data-tooltip="Article is currently {% if article.published is not same as(1) %}hidden{% else %}published{% endif %}. To change that, you have to go to 'Articles' section." data-variation="wide" data-position="right center" >
+                                    <i class="fas fa-eye{% if article.published is not same as(1) %}-slash{% endif %}"></i>
+                                </span>
+                            </div>
+                            {% set i = i + 1 %}
+                            {% if i is same as(4) %}{% set break = true %}{% endif %}
+                        {% endfor %}
+                    </div>
+                    <a class="ui bottom attached button" href="{{ path('adminArticles') }}" tabindex="0">Articles</a>
+                </div>
+
+                <div class="box">
+                    <div class="ui top attached segment">
+                        <h3 class="ui header">
+                            <div class="sub header">Latest</div>
+                            Events
+                        </h3>
+                        <div class="ui divider"></div>
+                        {% set i = 0 %}
+                        {% set break = false %}
+                        {% for event in events if not break %}
+                            <div style="margin-bottom: 12px;">
+                                <a href="{{ path('adminEventsEdit', {"id": event.id}) }}"><h4>{{ event.title }}
+                                {% if cycle(events, i).finished is same as(0) %}
+                                {% elseif cycle(events, i).finished is same as(1) %}
+                                    <span style="color: #33aa33;"> &#9899;</span>
+                                {% elseif cycle(events, i).finished is same as(2) %}
+                                    <span style="color: #333;">	&#9899;</span>
+                                {% endif %}
+                                </h4></a>
+
+                                <div>{{ event.time0 }}, {{ event.time1 }}</div>
+                            </div>
+                            {% set i = i + 1 %}
+                            {% if i is same as(4) %}{% set break = true %}{% endif %}
+                        {% endfor %}
+                    </div>
+                    <a class="ui bottom attached button" href="{{ path('adminEvents') }}">Events</a>
+                </div> 
+
+
+                <div class="box">
+                    <div class="ui top attached segment">
+                        <h3 class="ui header">
+                            <div class="sub header">Latest</div>
+                            Documents
+                        </h3>
+                        <div class="ui divider"></div>
+                        {% set i = 0 %}
+                        {% set break = false %}
+                        {% for document in documents if not break %}
+                            {% if document.type is same as(1) %}
+                            <div style="margin-bottom: 12px;">
+                                <a href="{{ path('openFile', {'file': document.file }) }}" target='_blank'><h4>{{document.name}}</h4></a>
+                            </div>
+                            {% endif %}
+                            
+                            {% set i = i + 1 %}
+                            {% if i is same as(4) %}{% set break = true %}{% endif %}
+                        {% endfor %}
+
+                        <div class="ui divider"></div>
+
+                        {% set i = 0 %}
+                        {% for document in documents %}
+                            {% if document.type is same as(0) %}
+                            <div style="margin-bottom: 12px;">
+                                <a href="{{ path('openFile', {'file': document.file }) }}" target='_blank'><h4>{{document.name}}</h4></a>
+                            </div>
+                            {% endif %}
+                            
+                            {% set i = i + 1 %}
+                        {% endfor %}
+                    </div>
+                    <a class="ui bottom attached button" href="{{ path('adminDocuments') }}">Documents</a>
+                </div> 
+
+            </div>
+
         </div>
         
     </div>

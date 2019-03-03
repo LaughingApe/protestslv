@@ -8,22 +8,19 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
-
-
 use App\Entity\Admin;
 use App\Entity\Article;
+use App\Entity\Event;
+use App\Entity\Document;
 
 class AdminController extends AbstractController{
 
@@ -37,44 +34,11 @@ class AdminController extends AbstractController{
         return $admin;
     }
 
-    /*public function login(SessionInterface $session){
-        if( $this->checkIfLoggedIn($session) ) return $this->redirectToRoute('index');
-
-        return $this->render('admin/pages/login.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
-    }*/
-
-
-    public function index(SessionInterface $session, UserInterface $user){
-
-        return $this->render('admin/pages/index.html.twig', [
-            'controller_name' => 'AdminController',
-            'username' => $user->getUsername()
-        ]);//*/
-    }
-
-    public function articles(SessionInterface $session, UserInterface $user){
-        
-        $repository = $this->getDoctrine()->getRepository(Article::class);
-        $articles = $repository->findAll();
-
-        for($i = 0; $i<sizeof($articles); $i++)
-            if( $articles[$i]->getImage() === null )
-                $articles[$i]->setImage("default.png");
-
-        return $this->render('admin/pages/articles.html.twig', [
-            'controller_name' => 'AdminController',
-            'username' => $user->getUsername(),
-            'articles' => $articles
-        ]);//*/
-    }
-
-    public function removeImageFile($imageName){
-        if( $imageName=="" || $imageName===null ) return false;
+    public function removeFile($fileName){
+        if( $fileName=="" || $fileName===null ) return false;
         $fileSystem = new Filesystem();
 
-        $deletable = $this->getParameter('uploads_directory').$imageName;
+        $deletable = $this->getParameter('uploads_directory').$fileName;
 
         if( $fileSystem->exists( $deletable ) ){
             try {
@@ -88,256 +52,98 @@ class AdminController extends AbstractController{
         return true;
     }
 
-    public function removeArticleImage(SessionInterface $session, Request $request, UserInterface $user){
-        $repository = $this->getDoctrine()->getRepository(Article::class);
-        $article = $repository->find( $request->query->get('id') );      
-        
-        $this->removeImageFile( $article->getImage() );
-        
-        $article->setImage(null);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($article);
-        $entityManager->flush();
+    public function index(SessionInterface $session, UserInterface $user){
 
-        return new Response( "'".$imageName."'" );
-    }
+        $article_repository = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $article_repository->findAll();
 
-    public function removeArticleImages(SessionInterface $session, Request $request, UserInterface $user){
-        $repository = $this->getDoctrine()->getRepository(Article::class);
-        $article = $repository->find( $request->query->get('id') );      
-
-        $ids = $request->query->get('ids');
-        $images = $article->getImages();
-        for($i = 0; $i<sizeof($ids); $i++){
-            $this->removeImageFile( $images[$ids[$i]] );
-            $images[$ids[$i]] = "";
+        for($i = 0; $i<sizeof($articles); $i++){
+            if( $articles[$i]->getImage() === null )
+                $articles[$i]->setImage("default.png");
         }
 
-        $newImages = [];
-        for($i = 0; $i<sizeof($images); $i++){
-            if( $images[$i]!="" ) array_push( $newImages, $images[$i] ); 
-        }
-        
-        $article->setImages( $newImages );
+        $articles = array_reverse($articles);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($article);
-        $entityManager->flush();
+        $event_repository = $this->getDoctrine()->getRepository(Event::class);
+        $events = $event_repository->findBy(
+            array(),
+            array('position' => 'ASC')
+        );
 
-        return new Response( "+" );
-    }
+        $statuses = array(false, false, false);
 
-    public function newArticle(SessionInterface $session, Request $request, UserInterface $user){
-        
-        $article = new Article();
-        $article->setTime(new \DateTime('now'));
-
-        $form = $this->createFormBuilder($article)
-            ->add('title', TextType::class)
-            ->add('link', TextType::class)
-            ->add('image', FileType::class, array('required' => false))
-            ->add('text', TextareaType::class)
-            ->add('tags', TextType::class, array(
-                'data' => '[]'
-           ))
-            ->add('author', ChoiceType::class, array(
-                'choices'  => array(
-                    $user->getName() => $user->getUsername(),
-                    'Protests' => 'Protests',
-                )))
-            ->add('images', FileType::class, [
-                    'multiple' => true,
-                    'required' => false,
-                    'attr'     => [
-                        'accept' => 'image/*',
-                        'multiple' => 'multiple'
-                    ]
-                ])
-            ->add('save', SubmitType::class, array('label' => 'Publish'))
-            ->getForm();
-        
-        
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $article = $form->getData();
-            
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            if( ( $form->get('image')->getData() ) === null ){
-            } else {
-                $file = $form->get('image')->getData();
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-                try {
-                    $file->move(
-                        $this->getParameter('uploads_directory'),
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-                $article->setImage($fileName);
-            }
-
-            $fileNames = [];
-            $files = $form->get('images')->getData();
-            foreach ($files as $file){
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-                try {
-                    $file->move(
-                        $this->getParameter('uploads_directory'),
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-                array_push( $fileNames, $fileName );
-            }
-            $article->setImages( $fileNames );
-
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($article);
-            $entityManager->flush();
-    
-            return $this->redirectToRoute('adminArticles');
+        for($i = 0; $i<sizeof($events); $i++){
+            $statuses[ $events[$i]->getFinished() ] = true;
         }
 
-        return $this->render('admin/pages/newArticle.html.twig', [
+        $document_repository = $this->getDoctrine()->getRepository(Document::class);
+        $documents = $document_repository->findBy(
+            array(),
+            array('position' => 'ASC')
+        );
+
+        return $this->render('admin/pages/index.html.twig', [
             'controller_name' => 'AdminController',
-            'username' => $user->getUsername(),
-            'form' => $form->createView()
+            'articles' => $articles,
+            'events' => $events,
+            'documents' => $documents,
+            'upcoming' => $statuses[0],
+            'ongoing' => $statuses[1],
+            'finished' => $statuses[2],
+            'user' => $user
         ]);//*/
     }
 
-    public function editArticle(SessionInterface $session, Request $request, UserInterface $user){
+
+    public function myAccount(SessionInterface $session, Request $request, UserInterface $user, UserPasswordEncoderInterface $encoder){
         
-        $repository = $this->getDoctrine()->getRepository(Article::class);
+        $defaultData = array('name' =>  $user->getName());
 
-        $article = $repository->find( $request->attributes->get('id') );
-
-        $articleWithImages = clone $article;
- 
-        $article->setImage(null);
-        $article->setImages(null);
-
-        $form = $this->createFormBuilder($article)
-            ->add('title', TextType::class)
-            ->add('link', TextType::class)
-            ->add('image', FileType::class, array('required' => false))
-            ->add('text', TextareaType::class)
-            ->add('tags', TextType::class, array(
-                'data' => '[]'
-           ))
-            ->add('author', ChoiceType::class, array(
-                'choices'  => array(
-                    $user->getName() => $user->getUsername(),
-                    'Protests' => 'Protests',
-                )))
-            ->add('images', FileType::class, [
-                    'multiple' => true,
-                    'required' => false,
-                    'attr'     => [
-                        'accept' => 'image/*',
-                        'multiple' => 'multiple'
-                    ]
-                ])
-            ->add('save', SubmitType::class, array('label' => 'Publish'))
+        $form = $this->createFormBuilder($defaultData)
+            ->add('name', TextType::class, array('label' => 'Display name'))
+            ->add('currentPassword', PasswordType::class, array('label' => 'Approve changes with your (current) password'))
+            ->add('password', RepeatedType::class,array(
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'options' => array('attr' => array('class' => 'password-field')),
+                'required' => false,
+                'first_options'  => array('label' => 'New Password'),
+                'second_options' => array('label' => 'Repeat New Password'),
+            ))
+            ->add('save', SubmitType::class)
             ->getForm();
-        
-        
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $article = $form->getData();
-            
-            
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            if( ( $form->get('image')->getData() ) === null ){
-                $article->setImage( $articleWithImages->getImage() );
-            } else {
-                $this->removeImageFile( $articleWithImages->getImage() );
-                $file = $form->get('image')->getData();
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-                try {
-                    $file->move(
-                        $this->getParameter('uploads_directory'),
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-                $article->setImage($fileName);
+            // data is an array with "name", "email", and "message" keys
+            $data = $form->getData();
+
+            if (!$encoder->isPasswordValid($user, $data['currentPassword'])) {
+                $this->addFlash('danger', 'Current password is invalid. Please try again');
+                return $this->redirectToRoute('adminMyAccount', array('message' => 'wrong-password') );
             }
 
-            
-            $fileNames = [];
-            if( $articleWithImages->getImages() !== NULL ) $fileNames=$articleWithImages->getImages();
-            $files = $form->get('images')->getData();
-            foreach ($files as $file){
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-                try {
-                    $file->move(
-                        $this->getParameter('uploads_directory'),
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-                array_push( $fileNames, $fileName );
+            $user->setName( $data['name'] ); 
+            if( $data['password'] !== null && $data['password'] != "" ){
+                
+                $pass = $encoder->encodePassword($user, $data['password']);
+                $user->setPassword( $pass );    
             }
-            $article->setImages( $fileNames );
-
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($article);
+            $entityManager->persist($user);
             $entityManager->flush();
-    
-            return $this->redirectToRoute('adminArticles');
+
+            return $this->redirectToRoute('adminMyAccount', array('message' => 'success') );
         }
 
-        return $this->render('admin/pages/editArticle.html.twig', [
+        return $this->render('admin/pages/myAccount.html.twig', [
             'controller_name' => 'AdminController',
-            'username' => $user->getUsername(),
-            'article' => $article,
-            'article_with_images' => $articleWithImages,
-            'form' => $form->createView()
+            'user' => $user,
+            'form' => $form->createView(),
+            'message' => $request->query->get('message')
         ]);//*/
-    }
-
-    public function deleteArticle(SessionInterface $session, Request $request, UserInterface $user){
-        $repository = $this->getDoctrine()->getRepository(Article::class);
-        $article = $repository->find( $request->attributes->get('id') );
-
-        if( $article->getImage() !== null ) $this->removeImageFile( $article->getImage() );
-        
-        if( $article->getImages() !== null ){
-            $images = $article->getImages();
-            foreach( $images as $image ){
-                $this->removeImageFile( $image );
-            }
-        }
-        
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($article);
-        $entityManager->flush();
-        return $this->redirectToRoute('adminArticles');
-    } 
-
-    /**
-     * @return string
-     */
-    private function generateUniqueFileName()
-    {
-        // md5() reduces the similarity of the file names generated by
-        // uniqid(), which is based on timestamps
-        return md5(uniqid());
     }
 
 }

@@ -1,28 +1,57 @@
-<!--<div class="ui inverted vertical footer segment">
-    <div class="ui container">
-      <div class="ui stackable inverted divided equal height stackable grid">
-        <div class="three wide column">
-          <h4 class="ui inverted header">About</h4>
-          <div class="ui inverted link list">
-            <a href="#" class="item">Sitemap</a>
-            <a href="#" class="item">Contact Us</a>
-            <a href="#" class="item">Religious Ceremonies</a>
-            <a href="#" class="item">Gazebo Plans</a>
-          </div>
+
+{% set route = app.request.attributes.get('_route') %}
+{% set route_params = app.request.attributes.get('_route_params') %}
+{% set params = route_params|merge(app.request.query.all) %}
+
+<div class="ui inverted vertical footer segment">
+  <div class="ui container">
+    <div class="ui stackable inverted divided equal height stackable grid">
+      <div class="three wide column">
+        <h4 class="ui inverted header">{{ c[20]|raw }}</h4>
+        <div class="ui inverted link list">
+          <a href="{{ path('about') }}" class="item">{{ c[23]|raw }}</a>
+          <a href="{{ path('contact') }}" class="item">{{ c[24]|raw }}</a>
+          <a href="{{ path('documents') }}" class="item">{{ c[25]|raw }}</a>
+          <a href="{{ path('partners') }}" class="item">{{ c[46]|raw }}</a>
         </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header">Services</h4>
-          <div class="ui inverted link list">
-            <a href="#" class="item">Banana Pre-Order</a>
-            <a href="#" class="item">DNA FAQ</a>
-            <a href="#" class="item">How To Access</a>
-            <a href="#" class="item">Favorite X-Men</a>
-          </div>
+      </div>
+      <div class="three wide column">
+        <h4 class="ui inverted header">{{ c[21]|raw }}</h4>
+        <div class="ui inverted link list">
+          <a href="{{ path('articles') }}" class="item">{{ c[26]|raw }}</a>
+          <a href="{{ path('events') }}" class="item">{{ c[45]|raw }}</a>
+          <a href="{{ path('join') }}" class="item">{{ c[27]|raw }}</a>
+          <a href="{{ path('donate') }}" class="item">{{ c[49]|raw }}</a>
         </div>
-        <div class="seven wide column">
-          <h4 class="ui inverted header">Footer Header</h4>
-          <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+      </div>
+      <div class="three wide column">
+        <h4 class="ui inverted header">{{ c[22]|raw }}</h4>
+        <div class="ui inverted link list">
+          <a href="https://www.facebook.com/protestsjaunatne" target="_blank" class="item">Facebook</a>
+          <a href="https://twitter.com/ProtestsYouth" target="_blank" class="item">Twitter</a>
+          <a href="https://www.instagram.com/protestsjaunatne/" target="_blank" class="item">Instagram</a>
+        </div>
+      </div>
+      <div class="six wide column">
+        <div class="ui inverted horizontal link list">
+          {% if lang is not same as('lv') %}<a class="item" href="{{ path(route, params|merge({ _locale: 'lv' })) }}">Latviski</a>{% endif %}
+          {% if lang is not same as('en') %}<a class="item" href="{{ path(route, params|merge({ _locale: 'en' })) }}">English</a>{% endif %}
+          {% if lang is not same as('ru') %}<a class="item" href="{{ path(route, params|merge({ _locale: 'ru' })) }}">По-русски</a>{% endif %}
+        </div>
+        <div class="ui inverted link list">
+          <p class="item">
+            {% if lang is same as('lv') %}Uz mājaslapu un tajā izvietoto informāciju, ja vien nav norādīts citādi, attiecas <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank" class="ui footer-link">MIT licence</a>.{% endif %}
+            {% if lang is same as('en') %}This website and its content, if not stated otherwise, is published under <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank" class="ui footer-link">MIT license</a>.{% endif %}
+            {% if lang is same as('ru') %}???? <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank" class="ui footer-link">MIT licence</a>.{% endif %}
+          </p>
+          <p class="item">
+            {% if lang is same as('lv') %}Mājaslapu veidoja{% endif %}
+            {% if lang is same as('en') %}Website created by{% endif %}
+            {% if lang is same as('ru') %}????????{% endif %}
+            <a href="http://nikalapa.lv" target="_blank" class="ui footer-link">Niks Derums</a> · 2019 · <a href="{{ path('privacy') }}" class="ui footer-link">{{ c[55] }}</a>
+          </p>
         </div>
       </div>
     </div>
-  </div>-->
+  </div>
+</div>

@@ -4,19 +4,154 @@
 
 {% block title %}{% endblock %}
 
+{% block head %}
+    <meta property="og:image" content="{{ uploads_directory }}default.png"/>
+    <meta property="og:image:url" content="{{ uploads_directory }}default.png"/>
+    
+    <meta property="og:title" content='Jaunatnes organizācija "Protests"' />
+    <meta property="og:url" content="{{ fullURL }}" />
 
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ProtestsYouth">
+    <meta name="twitter:creator" content="@ProtestsYouth">
+    <meta name="twitter:title" content='Jaunatnes organizācija "Protests"'>
+    <meta name="twitter:description" content="[description]">
+    <meta name="twitter:text:description" content="[description]">
+    <meta name="twitter:image" content="{{ uploads_directory }}default.png">
+
+    <meta name="author" content="Protests">
+    <meta name="keywords" content="jaunatne, jaunatnes organizācija, Protests">
+    <meta name="description" content="[description]">
+{% endblock %}
 
 {% block body %}
 
-    Index
+    {% include "nav.html.twig" %}
+
+    <div class="welcome-view">
+        <div class="content">
+            <div class="pusher"></div>
+            <h1>{{ c[7]|raw }}</h1>
+            <div class="subheader">{{ c[8]|raw }}</div>
+            <a href="{{ path('join') }}" class="button welcome">{{ c[9]|raw }}</a>
+            <a href="{{ path('about') }}" class="button welcome">{{ c[10]|raw }}</a>
+        </div>
+    </div>
+
+    <div class="white stripe">
+        <div class="ui text container">
+
+            <h1 class="ui horizontal divider header">{{ c[11]|raw }}</h1>
+            <div class="ui hidden divider"></div>
+            
+            <div class="news-grid">
+                {% set i = 0 %}
+                {% set break = false %}
+                {% for article in articles if not break %}
+                    <div class="article">
+                        <a href="{{ path('article', {article_url: article.link}) }}" class="image">
+                            <img src="/assets/uploads/{{ article.image }}">
+                        </a>
+                        <a href="{{ path('article', {article_url: article.link}) }}" class="header"><h2>{{ article.title }}</h2></a>
+                        <span class="time">{{ articletime[i] }}</span> · 
+                        <a href="{{ path('author', {author: article.author}) }}" class="author">{{ articleauthor[i] }}</a>
+                    </div>
+                    {% set i = i + 1 %}
+                    {% if i is same as(4) %}{% set break = true %}{% endif %}
+                {% endfor %}
+            </div>
+
+            <a href="{{ path('articles') }}" class="button dark wide center">{{ c[12]|raw }}</a>
+        </div>
+    </div>
+
+    <div class="violet stripe">
+        <div class="ui text container">
+    
+            <h1 class="ui horizontal divider header">{{ c[13]|raw }}</h1>
+            <div class="ui hidden divider"></div>
+            <div class="landing-textblock">
+                {{ c[14]|raw }}
+            </div>
+
+            <div class="centered-content-container">
+                <a href="{{ path('about') }}" class="button white">{{ c[15]|raw }}</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="white stripe">
+        {% if ( ongoing is same as(true) ) or ( upcoming is same as(true) ) %}
+
+            <div class="ui text container">
+                <h1 class="ui horizontal divider header">{{ c[42]|raw }}</h1>
+                <div class="event-list">
+                    {% for event in events %}
+                        {% if ( event.finished is same as(1) ) or ( event.finished is same as(0) ) %}
+                        <div class="date-box">
+                            <div class="top">{{ event.time0 }}</div>
+                            <div class="bottom">{{ event.time1 }}</div>
+                        </div>
+                        <div>
+                            <a href="{{ path('event', {id: event.id}) }}" class="header">{{ event.title }}</a>
+                            <p class="details">
+                                <i class="fas fa-map-marker"></i> {{ event.location }}
+                                {% if ( event.finished is same as(1) ) %}<span class="happening-now">Notiek tagad</span>{% endif %}
+                            </p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+            </div>
+        {% endif %}
+
+        <div class="ui text container">
+            <h1 class="ui horizontal divider header">{{ c[16]|raw }}</h1>
+            <div class="ui hidden divider"></div>
+            <div class="socmedia-block">
+                <a href="https://www.facebook.com/protestsjaunatne" target="_blank" class="ui segment fb">
+                    <i class="fab fa-facebook-f"></i>
+                </a> 
+                <a href="https://twitter.com/ProtestsYouth" target="_blank" class="ui segment tw">
+                    <i class="fab fa-twitter"></i>
+                </a> 
+                <a href="https://www.instagram.com/protestsjaunatne/" target="_blank" class="ui segment ig">
+                    <i class="fab fa-instagram"></i>
+                </a> 
+            </div>
+        </div>
+    </div>
+
+    <div class="violet stripe">
+        <div class="ui text container">
+
+            <h1 class="ui horizontal divider header">{{ c[17]|raw }}</h1>
+            <div class="ui hidden divider"></div>
+            <div class="landing-textblock">
+                {{ c[18]|raw }}
+            </div>
+            
+            <div class="centered-content-container">
+                <a href="{{ path('join') }}" class="button white">{{ c[19]|raw }}</a>
+            </div>
+            
+        </div>
+    </div>
+    
+
+                
+        
+            
+            <!---->
 
 {% endblock %}
 
 
 
 {% block javascripts %}
+{% include "navjs.html.twig" %}
 <script>
-
 /*$(document).ready(function(){
     $('.owl-carousel').owlCarousel({
         loop:true,

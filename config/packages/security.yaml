@@ -46,6 +46,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/admin/documents, roles: [ROLE_ADMIN, ROLE_SUPERADMIN]  }
+         - { path: ^/admin/partners, roles: [ROLE_ADMIN, ROLE_SUPERADMIN]  }
+         - { path: ^/admin/manage-admins, roles: ROLE_SUPERADMIN  }
+         - { path: ^/admin, roles: [ROLE_EDITOR, ROLE_ADMIN, ROLE_SUPERADMIN] }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

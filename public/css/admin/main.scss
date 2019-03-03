@@ -1,16 +1,20 @@
 
 body{
     min-height: 100vh;
-    background-color: #eee;
-
+    background-color: #dadada !important;
     .pusher{
+        background-color: unset !important;
         min-height: 100vh;
         .content-container{
-            background-color: #dadada;
+            //background-color: unset !important;
             min-height: 100vh;
         }
     }
     
+}
+
+body.pushable{
+    background-color: #dadada !important;
 }
 
 #nav-but{
@@ -92,6 +96,40 @@ body{
     overflow: hidden;
 }
 
-.removeGalleryImage{
+.menu-logo{
+    padding: 0px 20%;
+}
 
+#iconPreview{
+    text-align: center;
+    font-size: 3em;
+}
+
+.change-order-button{
+    cursor: pointer;
+}
+
+.partner-logo{
+    width: 70px;
+}
+.small-logo{
+    width: 140px !important; 
+    img{
+        padding: 10px;
+    }
+}
+
+.home-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+
+    margin: 20px 0px;
+
+    @media only screen and (max-width: 992px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media only screen and (max-width: 723px) {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,0 +1,158 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}Edit Content{% endblock %}
+
+
+{% block body %}
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <a href="{{ path('adminContents') }}" class="section">Website Content</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">Edit Content</div>
+                </div>
+
+
+                <h1 class="ui header">
+                    Edit Content
+                    <div class="sub header">Edit a new piece of content in the website</div>
+                </h1>
+
+                <div class="ui divider"></div>
+
+                {{ form_start(form, { 'attr' : { 'class': 'ui form', 'onsubmit': 'submitted();' } }) }}
+                    {{ form_errors(form) }}
+                    
+                    <div class="ui inverted secondary segment">
+
+                        <p class="">These two fields do not have any effect on website and are there just to make it easier for admins to understand where they will be displayed. Please do not change them unless you know what you are doing.<p>
+
+                        <div class="field">
+                            {{ form_label(form.category) }}
+                            {{ form_errors(form.category) }}
+                            {{ form_widget(form.category, { 'attr' : { 'class': 'ui dropdown' } }) }}
+                            {{ form_help(form.category) }}
+                        </div>
+
+                        <div class="field">
+                            {{ form_label(form.location) }}
+                            {{ form_errors(form.location) }}
+                            {{ form_widget(form.location) }}
+                            {{ form_help(form.location) }}
+                        </div>
+
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.content) }}
+                        {{ form_errors(form.content) }}
+                        {{ form_widget(form.content, { 'attr' : { 'class': 'summernote0' } }) }}
+                        {{ form_help(form.content) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.contenten) }}
+                        {{ form_errors(form.contenten) }}
+                        {{ form_widget(form.contenten, { 'attr' : { 'class': 'summernote1' } }) }}
+                        {{ form_help(form.contenten) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.contentru) }}
+                        {{ form_errors(form.contentru) }}
+                        {{ form_widget(form.contentru, { 'attr' : { 'class': 'summernote2' } }) }}
+                        {{ form_help(form.contentru) }}
+                    </div>
+                    
+                    {{ form_widget(form.save, { 'attr' : { 'class': 'ui blue button' } }) }}
+
+                {{ form_end(form) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+
+    function submitted(){
+        $("#form_save").addClass("loading");
+        $("#form_save").prop('disabled', true);
+        return true;
+    }
+
+    function updateIcon(){
+        document.getElementById('iconPreview').innerHTML = "<i class='fas fa-" + document.getElementById('form_icon').value + "'></i>";
+    }
+
+
+    $(document).ready(function() {
+    
+        $('.summernote0').summernote({
+            height: 100,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['color', ['color']],
+                ['attach', ['link','picture','video','table']],
+                ['other', ['fullscreen','codeview','undo','redo','help']]
+            ],
+            callbacks: {
+                onChange: function(contents, $editable) {
+                    //console.log('onChange:', contents, $editable);
+                    $("#form_content").html( contents );
+                }
+            }
+        });
+        $('.summernote1').summernote({
+            height: 100,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['color', ['color']],
+                ['attach', ['link','picture','video','table']],
+                ['other', ['fullscreen','codeview','undo','redo','help']]
+            ],
+            callbacks: {
+                onChange: function(contents, $editable) {
+                    //console.log('onChange:', contents, $editable);
+                    $("#form_contenten").html( contents );
+                }
+            }
+        });
+        $('.summernote2').summernote({
+            height: 100,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['color', ['color']],
+                ['attach', ['link','picture','video','table']],
+                ['other', ['fullscreen','codeview','undo','redo','help']]
+            ],
+            callbacks: {
+                onChange: function(contents, $editable) {
+                    //console.log('onChange:', contents, $editable);
+                    $("#form_contentru").html( contents );
+                }
+            }
+        });
+
+        $('select.dropdown').dropdown();
+
+
+    });
+</script>
+{% endblock %}

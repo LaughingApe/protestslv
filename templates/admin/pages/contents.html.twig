@@ -1,0 +1,88 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}Website Content{% endblock %}
+
+{% block body %}
+
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">Website Content</div>
+                </div>
+
+                <h1 class="ui header">Website Content
+                    <div class="sub header">Manage pieces of content from the website</div>
+                </h1>
+
+                <div class="ui hidden divider"></div>
+
+                <div>
+                    <select id="selectLang" onchange="updateDisplayedLanguage();" class="ui compact dropdown">
+                        <option value="lv">Latviski</option>
+                        <option value="en">English</option>
+                        <option value="ru">По-русски</option>
+                    </select>
+                </div>
+
+                {% set i = 0 %}
+                {% for contentcat in contents %}
+                    <h3 class="ui top attached small inverted header">{{ cats[i] }}</h3>
+                    <table class="ui bottom attached small very compact celled table">
+                        <thead>
+                            <tr><th>Id</th>
+                            <th>Location</th>
+                            <th>Content</th>
+                            <th></th>
+                        </tr></thead>
+                        <tbody>
+                        {% for content in contentcat %}
+                            <tr>
+                                <td>{{ content.id }}</td>
+                                <td>{{ content.location }}</td>
+                                <td>
+                                    <div class="lang-lv">{{ content.content|raw }}</div>
+                                    <div class="lang-en">{{ content.contenten|raw }}</div>
+                                    <div class="lang-ru">{{ content.contentru|raw }}</div>
+                                </td>
+                                <td class="warning selectable"><a href="{{ path('adminContentsEdit', {'id': content.id})  }}">Edit</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% set i = i + 1 %}
+                {% endfor %}
+
+                
+            </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+
+    function updateDisplayedLanguage(){
+        $(".lang-lv").hide();
+        $(".lang-en").hide();
+        $(".lang-ru").hide();
+        $(".lang-" + document.getElementById("selectLang").value).show();
+    }
+
+    $(document).ready(function() {
+        updateDisplayedLanguage();
+        $('select.dropdown').dropdown();
+    });
+
+</script>
+{% endblock %}
