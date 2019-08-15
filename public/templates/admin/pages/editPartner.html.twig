@@ -1,0 +1,114 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}Edit Partner{% endblock %}
+
+
+{% block body %}
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <a href="{{ path('adminPartners') }}" class="section">Partners</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">Edit Partner</div>
+                </div>
+
+
+                <h1 class="ui header">
+                    Edit Partner
+                    <div class="sub header">Edit an orgnisation's partner from the list of partners</div>
+                </h1>
+
+                <div class="ui divider"></div>
+
+                {{ form_start(form, { 'attr' : { 'class': 'ui form', 'onsubmit': 'submitted();' } }) }}
+                    {{ form_errors(form) }}
+
+                    <div class="field">
+                        {{ form_label(form.name) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="ui card small-logo">
+                        <div class="image">
+                            <img class="partner-logo-edit" src="/assets/uploads/{{ partner_with_file.logo }}">
+                        </div>
+                        <div class="center aligned extra content">
+                            Current logo
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.logo) }}
+                        {{ form_errors(form.logo) }}
+                        {{ form_widget(form.logo) }}
+                        {{ form_help(form.logo) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.link) }}
+                        {{ form_errors(form.link) }}
+                        {{ form_widget(form.link) }}
+                        {{ form_help(form.link) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.description) }}
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description, { 'attr' : { 'class': 'summernote' } }) }}
+                        {{ form_help(form.description) }}
+                    </div>
+
+                    {{ form_widget(form.save, { 'attr' : { 'class': 'ui blue button' } }) }}
+
+                {{ form_end(form) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+
+    function submitted(){
+        $("#form_save").addClass("loading");
+        $("#form_save").prop('disabled', true);
+        return true;
+    }
+
+    $(document).ready(function() {
+    
+        $('select.dropdown').dropdown();
+
+        $('.summernote').summernote({
+            height: 200,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['color', ['color']],
+                ['attach', ['link','picture','video','table']],
+                ['other', ['fullscreen','codeview','undo','redo','help']]
+            ],
+            callbacks: {
+                onChange: function(contents, $editable) {
+                    //console.log('onChange:', contents, $editable);
+                    $("#form_text").html( contents );
+                }
+            }
+        });
+        
+    });
+</script>
+{% endblock %}

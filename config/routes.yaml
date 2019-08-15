@@ -113,6 +113,14 @@ partners:
     requirements:
       _locale: '%app.locales%'
 
+people:
+    path: /{_locale}/people
+    controller: App\Controller\PagesController::people
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
 privacy:
     path: /{_locale}/privacy
     controller: App\Controller\PagesController::privacy
@@ -232,6 +240,34 @@ adminDocumentsDelete:
 adminDocumentsSwap:
     path: /admin/documents/swap
     controller: App\Controller\DocumentController::swapDocument
+
+adminPeople:
+    path: /admin/people
+    controller: App\Controller\PeopleController::people
+    defaults:
+        template: 'admin/pages/people.html.twig'
+
+adminPeopleNew:
+    path: /admin/people/new
+    controller: App\Controller\PeopleController::newPerson
+    defaults:
+        template: 'admin/pages/newPerson.html.twig'
+
+adminPeopleEdit:
+    path: /admin/people/edit/{id}
+    controller: App\Controller\PeopleController::editPerson
+    requirements:
+        id: '\d+'
+
+adminPeopleDelete:
+    path: /admin/people/delete/{id}
+    controller: App\Controller\PeopleController::deletePerson
+    requirements:
+        id: '\d+'
+
+adminPeopleSwap:
+    path: /admin/people/swap
+    controller: App\Controller\PeopleController::swapPeople
 
 adminPartners:
     path: /admin/partners

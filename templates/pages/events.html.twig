@@ -32,13 +32,13 @@
                 {% endfor %}
             </div>
 
-            {% if ongoing is same as(true) %}
+            {% if ongoing is same as(true) and upcoming is same as(true)  %}
                 <h2 class="ui header">{{ c[43]|raw }}</h2>
             {% endif %}
 
 
             <div class="event-list">
-                {% for event in events %}
+                {% for event in events|reverse %}
                     {% if event.finished is same as(0) %}
                     <div class="date-box">
                         <div class="top">{{ event.time0 }}</div>
@@ -52,12 +52,12 @@
                 {% endfor %}
             </div>
 
-            {% if upcoming is same as(true) %}
+            {% if upcoming is same as(true) and finished is same as(true)  %}
                 <h2 class="ui header">{{ c[44]|raw }}</h2>
             {% endif %}
 
             <div class="event-list old">
-                {% for event in events %}
+                {% for event in events|reverse %}
                     {% if event.finished is same as(2) %}
                     <div class="date-box">
                         <div class="top">{{ event.time0 }}</div>

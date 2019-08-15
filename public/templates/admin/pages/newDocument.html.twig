@@ -1,0 +1,102 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}New Document{% endblock %}
+
+
+{% block body %}
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <a href="{{ path('adminDocuments') }}" class="section">Documents</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">New Document</div>
+                </div>
+
+
+                <h1 class="ui header">
+                    New Document
+                    <div class="sub header">Add a new document to the orgnisation's public documents</div>
+                </h1>
+
+                <div class="ui divider"></div>
+
+                {{ form_start(form, { 'attr' : { 'class': 'ui form', 'onsubmit': 'submitted();' } }) }}
+                    {{ form_errors(form) }}
+
+                    <div class="field">
+                        {{ form_label(form.type) }}
+                        {{ form_errors(form.type) }}
+                        {{ form_widget(form.type, { 'attr' : { 'class': 'ui dropdown' } }) }}
+                        {{ form_help(form.type) }}
+                    </div>
+                    
+                    <div class="field">
+                        {{ form_label(form.name) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.file) }}
+                        {{ form_errors(form.file) }}
+                        {{ form_widget(form.file) }}
+                        {{ form_help(form.file) }}
+                    </div>
+
+                    <div class="field">
+                        <label for="form_icon" class="required">
+                            <a href="https://fontawesome.com/icons?d=gallery" target="_blank">Icon</a>
+                            <span data-inverted="" data-tooltip="A Font Awsome class, for example 'file', 'file-word', 'star'." data-variation="wide" data-position="right center">
+                                <i class="question circle icon"></i>
+                            </span>
+                        </label>
+                        {{ form_errors(form.icon) }}
+                        {{ form_widget(form.icon, { 'attr' : { 'oninput': 'updateIcon();' } }) }}
+                        {{ form_help(form.icon) }}
+                    </div>
+
+                    <div class="ui compact segment">
+                        <div class="content"id="iconPreview"></div>
+                        <div class="extra content">Icon Preview</div>
+                    </div>
+                    
+                    {{ form_widget(form.save, { 'attr' : { 'class': 'ui positive button' } }) }}
+
+                {{ form_end(form) }}
+
+            </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+
+    function submitted(){
+        $("#form_save").addClass("loading");
+        $("#form_save").prop('disabled', true);
+        return true;
+    }
+
+    function updateIcon(){
+        document.getElementById('iconPreview').innerHTML = "<i class='fas fa-" + document.getElementById('form_icon').value + "'></i>";
+    }
+
+
+    $(document).ready(function() {
+    
+        $('select.dropdown').dropdown();
+        
+    });
+</script>
+{% endblock %}

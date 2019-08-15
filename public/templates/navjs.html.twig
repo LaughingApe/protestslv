@@ -1,0 +1,25 @@
+
+<script> 
+window.onscroll = function (e){
+
+    var scroll = document.body.scrollTop;
+    if(scroll==0){
+        scroll = document.documentElement.scrollTop;
+    }
+
+    $(".nav").css("height", Math.max(50,100-scroll/3) + "px" );
+    $(".logo img").css("height", Math.max(30,60-scroll/4) + "px" );
+
+    $(".nav-drop").css("top", Math.max(50,100-scroll/3) + "px" );
+}
+
+function toggleNav(){
+    if( $(".nav-bar").hasClass("open") ){
+        $(".nav-bar").removeClass("open");
+    } else {
+        $(".nav-bar").addClass("open");
+    }
+
+}
+
+</script>

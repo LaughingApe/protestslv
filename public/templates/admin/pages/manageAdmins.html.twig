@@ -1,0 +1,174 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}Manage Admins{% endblock %}
+
+{% block body %}
+
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">Manage Admins</div>
+                </div>
+
+                <h1 class="ui header">Manage Admins
+                    <div class="sub header">Manage permissions for editors and admins</div>
+                </h1>
+
+                <div class="ui hidden divider"></div>
+
+                <table class="ui small compact celled table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Display name</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th data-inverted="" data-tooltip="Can add/edit/remove Articles">Editor</th>
+                            <th data-inverted="" data-tooltip="Can add/edit/remove any data on the website">Admin</th>
+                            <th data-inverted="" data-tooltip="Can manage permissions of other Admins and Editors">Super Admin</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for admin in admins %}
+                            <tr>
+                                <td>{{ admin.id }}</td>
+                                <td>{{ admin.name }}</td>
+                                <td>{{ admin.username }}</td>
+                                <td>••••</td>
+                                <td>
+                                    <div class="ui {% if roles[admin.id]['ROLE_EDITOR'] is same as(true) %}checked{% endif %} fitted checkbox">
+                                        <input oninput="swtichRole('ROLE_EDITOR',{{ admin.id }});" type="checkbox" {% if roles[admin.id]['ROLE_EDITOR'] is same as(true) %}checked{% endif %} {% if admin.username is same as(user.username) %}disabled{% endif %}>
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='ui {% if roles[admin.id]["ROLE_ADMIN"] is same as(true) %}checked{% endif %} fitted checkbox'>
+                                        <input oninput="swtichRole('ROLE_ADMIN',{{ admin.id }});" type="checkbox" {% if roles[admin.id]['ROLE_ADMIN'] is same as(true) %}checked{% endif %} {% if admin.username is same as(user.username) %}disabled{% endif %}>
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ui {% if roles[admin.id]['ROLE_SUPERADMIN'] is same as(true) %}checked{% endif %} fitted checkbox">
+                                        <input oninput="swtichRole('ROLE_SUPERADMIN',{{ admin.id }});" type="checkbox" {% if roles[admin.id]['ROLE_SUPERADMIN'] is same as(true) %}checked{% endif %} {% if admin.username is same as(user.username) %}disabled{% endif %}>
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td class="selectable {% if admin.username is same as(user.username) %}disabled{% else %}negative{% endif %}">
+                                    <a style="cursor:pointer;" onclick="tryDelete({{ admin.id }});">Remove</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot class="full-width">
+                        <tr>
+                            <th colspan="8">
+                                <a href="{{ path('adminManageAdminsNew') }}" class="ui right floated small primary labeled icon button">
+                                    <i class="user icon"></i> Add Editor/Admin
+                                </a>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </div>
+
+
+
+            </div>
+
+    </div>
+
+    {% for admin in admins %}
+        <div class="ui mini modal" id="tryDeleteModal{{ admin.id }}">
+            <div class="ui header">
+                Remove Account?
+            </div>
+            <div class="center aligned content">
+                <p>Do you really want to <b>permanently</b> remove <b>{{ admin.username }}</b> from Admins list?</p>
+            </div>
+            <div class="actions">
+                <button type="button" onclick="closeModal({{ admin.id }});" class="ui cancel button">
+                    <i class="remove icon"></i>
+                    No
+                </button>
+                <button type="button" onclick="deleteAdmin({{ admin.id }})" class="ui red ok button">
+                    <i class="trash icon"></i>
+                    Yes
+                </button>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="ui mini modal" id="adminCreatedModal">
+        <div class="ui icon header">
+            <i class="green check icon"></i>
+            Account created
+        </div>
+        <div class="content">
+            Now you can add permissions to the new admin by ticking the corresponding checkboxes in the table.
+        </div>
+        <div class="actions">
+            <button type="button" onclick="closeModals();" class="ui button">
+                <i class="check icon"></i>
+                Ok
+            </button>
+        </div>
+    </div>
+
+    <div class="ui mini modal" id="adminRemovedModal">
+        <div class="ui icon header">
+            <i class="green check icon"></i>
+            Account removed
+        </div>
+        <div class="actions">
+            <button type="button" onclick="closeModals();" class="ui button">
+                <i class="remove icon"></i>
+                Ok
+            </button>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+    // path('adminArticlesDelete', {"id": article.id}) 
+    function closeModal(id){
+        $('#tryDeleteModal'+id).modal('hide');
+    }
+    function tryDelete(id){
+        $('#tryDeleteModal'+id).modal('show');
+    }
+    function deleteAdmin(id){
+        window.location.href = "/admin/manage-admins/delete/" + id;
+    }
+    function swtichRole(role, id){
+        $.get("{{ path('adminManageAdminsRoles') }}?id=" + id + "&role=" + role, function(data, status){
+        });
+    }
+
+    function closeModals(){
+        $('#adminCreatedModal').modal('hide');
+        $('#adminRemovedModal').modal('hide');
+    }
+
+    $(document).ready(function() {
+        {% if message is same as("admin-created")  %}
+            $('#adminCreatedModal').modal('show');
+        {% endif %}
+        {% if message is same as("admin-removed")  %}
+            $('#adminRemovedModal').modal('show');
+        {% endif %}
+    });
+</script>
+{% endblock %}

@@ -5,8 +5,8 @@
 {% block title %}{% endblock %}
 
 {% block head %}
-    <meta property="og:image" content="{{ uploads_directory }}default.png"/>
-    <meta property="og:image:url" content="{{ uploads_directory }}default.png"/>
+    <meta property="og:image" content="http://www.protests.eu/assets/uploads/default.png"/>
+    <meta property="og:image:url" content="http://www.protests.eu/assets/uploads/default.png"/>
     
     <meta property="og:title" content='Jaunatnes organizācija "Protests"' />
     <meta property="og:url" content="{{ fullURL }}" />
@@ -15,13 +15,13 @@
     <meta name="twitter:site" content="@ProtestsYouth">
     <meta name="twitter:creator" content="@ProtestsYouth">
     <meta name="twitter:title" content='Jaunatnes organizācija "Protests"'>
-    <meta name="twitter:description" content="[description]">
-    <meta name="twitter:text:description" content="[description]">
-    <meta name="twitter:image" content="{{ uploads_directory }}default.png">
+    <meta name="twitter:description" content="{{ c[14]|striptags }}">
+    <meta name="twitter:text:description" content="{{ c[14]|striptags }}">
+    <meta name="twitter:image" content="http://www.protests.eu/assets/uploads/default.png">
 
     <meta name="author" content="Protests">
     <meta name="keywords" content="jaunatne, jaunatnes organizācija, Protests">
-    <meta name="description" content="[description]">
+    <meta name="description" content="{{ c[14]|striptags }}">
 {% endblock %}
 
 {% block body %}

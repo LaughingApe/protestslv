@@ -13,6 +13,7 @@ use App\Entity\Document;
 use App\Entity\Article;
 use App\Entity\Event;
 use App\Entity\Partner;
+use App\Entity\Person;
 use App\Entity\Admin;
 
 class PagesController extends AbstractController
@@ -240,7 +241,7 @@ class PagesController extends AbstractController
     public function author(Request $request){
         
         $repository = $this->getDoctrine()->getRepository(Article::class);
-        $articles = $repository->findBy( ['author' => $request->attributes->get('author') ] );
+        $articles = $repository->findBy( ['published' => 1, 'author' => $request->attributes->get('author') ] );
 
         $user_repository = $this->getDoctrine()->getRepository(Admin::class);
 
@@ -278,7 +279,7 @@ class PagesController extends AbstractController
     public function tag(Request $request){
         
         $repository = $this->getDoctrine()->getRepository(Article::class);
-        $allArticles = $repository->findAll();
+        $allArticles = $repository->findBy(['published' => 1]);
 
         $user_repository = $this->getDoctrine()->getRepository(Admin::class);
 
@@ -408,6 +409,24 @@ class PagesController extends AbstractController
             'controller_name' => 'PagesController',
             'lang' => $request->getLocale(),
             'partners' => $partners,
+            'c' =>  $this->getContentArray($request)
+        ]);//*/
+    }
+
+    public function people(Request $request){
+        
+        $repository = $this->getDoctrine()->getRepository(Person::class);
+        $people = $repository->findBy(
+            array(),
+            array('position' => 'ASC')
+        );
+
+        if( count($people)==0 ) $people = "NO";
+
+        return $this->render('pages/people.html.twig', [
+            'controller_name' => 'PagesController',
+            'lang' => $request->getLocale(),
+            'people' => $people,
             'c' =>  $this->getContentArray($request)
         ]);//*/
     }

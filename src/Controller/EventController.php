@@ -31,6 +31,10 @@ class EventController extends AbstractController{
             array('position' => 'ASC')
         );
 
+        for($i = 0; $i<sizeof($events); $i++){
+            $events[$i]->setDescription( strip_tags($events[$i]->getDescription()) );
+        }
+
         return $this->render('admin/pages/events.html.twig', [
             'controller_name' => 'EventController',
             'user' => $user,

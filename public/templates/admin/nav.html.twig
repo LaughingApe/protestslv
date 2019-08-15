@@ -1,0 +1,52 @@
+<div class="ui fixed inverted large main menu" id="standard-menu">
+  <div class="ui container">
+    <a class="ui launch icon item" id="nav-but" onclick="toggleMenuVisible()"><i class="content icon"></i></a>
+    <div class="item">
+      <span>Welcome,&#160</span><b>{{ user.username }}</b>!
+    </div>
+    
+  </div>
+</div>
+
+<div class="ui left fixed vertical inverted large menu" id="bigscreen-menu">
+  <!--<div class="image item">
+    <img class="menu-logo" src="/assets/images/protestswhite.svg"/>
+  </div>-->
+  <div class="item">Welcome, <b>{{ user.username }}</b>!</div>
+  <a class="item" href="{{ path('adminIndex') }}">Home</a>
+  <a class="item" href="{{ path('adminArticles') }}">Articles</a>
+  <a class="item" href="{{ path('adminEvents') }}">Events</a>
+  {% if is_granted('ROLE_ADMIN')   %}
+  <a class="item" href="{{ path('adminContents') }}">Website Content</a>
+  <a class="item" href="{{ path('adminDocuments') }}">Documents</a>
+  <a class="item" href="{{ path('adminPartners') }}">Partners</a>
+  {% endif %}
+  {% if is_granted('ROLE_SUPERADMIN')   %}
+  <a class="item" href="{{ path('adminManageAdmins') }}">Manage Admins</a>
+  {% endif %}
+  <a class="item" href="{{ path('adminMyAccount') }}">My Account</a>
+  <a class="item" href="{{ path('adminLogout') }}">Log out</a>
+</div>
+
+<div class="ui left fixed vertical sidebar overlay inverted large menu" id="standard-menu">
+  <a class="item" href="{{ path('adminIndex') }}">Home</a>
+  <a class="item" href="{{ path('adminArticles') }}">Articles</a>
+  <a class="item" href="{{ path('adminEvents') }}">Events</a>
+  {% if is_granted('ROLE_ADMIN')   %}
+  <a class="item" href="{{ path('adminContents') }}">Website Content</a>
+  <a class="item" href="{{ path('adminDocuments') }}">Documents</a>
+  <a class="item" href="{{ path('adminPartners') }}">Partners</a>
+  {% endif %}
+  {% if is_granted('ROLE_SUPERADMIN')   %}
+  <a class="item" href="{{ path('adminManageAdmins') }}">Manage Admins</a>
+  {% endif %}
+  <a class="item" href="{{ path('adminMyAccount') }}">My Account</a>
+  <a class="item" href="{{ path('adminLogout') }}">Log out</a>
+</div>
+
+
+<script>
+  function toggleMenuVisible(){
+    $('.ui.sidebar').sidebar('toggle');
+  }
+</script>

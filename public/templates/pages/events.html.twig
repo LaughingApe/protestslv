@@ -1,0 +1,104 @@
+{% extends "base.html.twig" %}
+
+
+
+{% block title %}{{ c[41]|raw }} | {% endblock %}
+
+
+
+{% block body %}
+
+    {% include "nav.html.twig" %}
+
+    <div class="standard-content">
+        <div class="ui text container">
+            <h1 class="ui horizontal divider huge header">{{ c[41]|raw }}</h1>
+
+            <div class="event-list">
+                {% for event in events %}
+                    {% if event.finished is same as(1) %}
+                    <div class="date-box">
+                        <div class="top">{{ event.time0 }}</div>
+                        <div class="bottom">{{ event.time1 }}</div>
+                    </div>
+                    <div>
+                        <a href="{{ path('event', {id: event.id}) }}" class="header">{{ event.title }}</a>
+                        <p class="details">
+                            <i class="fas fa-map-marker"></i> {{ event.location }}
+                            <span class="happening-now">Notiek tagad</span>
+                            </p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if ongoing is same as(true) and upcoming is same as(true)  %}
+                <h2 class="ui header">{{ c[43]|raw }}</h2>
+            {% endif %}
+
+
+            <div class="event-list">
+                {% for event in events %}
+                    {% if event.finished is same as(0) %}
+                    <div class="date-box">
+                        <div class="top">{{ event.time0 }}</div>
+                        <div class="bottom">{{ event.time1 }}</div>
+                    </div>
+                    <div>
+                        <a href="{{ path('event', {id: event.id}) }}" class="header">{{ event.title }}</a>
+                        <p class="details"><i class="fas fa-map-marker"></i> {{ event.location }}</p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if upcoming is same as(true) and finished is same as(true)  %}
+                <h2 class="ui header">{{ c[44]|raw }}</h2>
+            {% endif %}
+
+            <div class="event-list old">
+                {% for event in events %}
+                    {% if event.finished is same as(2) %}
+                    <div class="date-box">
+                        <div class="top">{{ event.time0 }}</div>
+                        <div class="bottom">{{ event.time1 }}</div>
+                    </div>
+                    <div>
+                        <a href="{{ path('event', {id: event.id}) }}" class="header">{{ event.title }}</a>
+                        <p class="details"><i class="fas fa-map-marker"></i> {{ event.location }}</p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+{% include "navjs.html.twig" %}
+
+<script>
+
+/*$(document).ready(function(){
+    $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        autoplay:true,
+        autoplayTimeout:2000,
+        autoplayHoverPause:true,
+        responsive:{
+            0:{
+                items:1
+            }
+        }
+    })
+});*/
+
+</script>
+{% endblock %}

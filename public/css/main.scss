@@ -1,16 +1,27 @@
 @font-face {
 	font-family: "HK Grotesk";
-	src: url("assets/fonts/HKGrotesk/HKGrotesk-Regular.otf") format("otf");
+	src: url("/assets/fonts/HKGrotesk/HKGrotesk-Light.otf") format("opentype");
 }
 @font-face {
     font-family: "HK Grotesk";
     font-weight: bold;
-	src: url("assets/fonts/HKGrotesk/HKGrotesk-Bold.otf") format("otf");
+	src: url("/assets/fonts/HKGrotesk/HKGrotesk-Bold.otf") format("opentype");
+}
+@font-face {
+    font-family: "HK Grotesk";
+    font-weight: light;
+	src: url("/assts/fonts/HKGrotesk/HKGrotesk-Light.otf") format("opentype");
 }
 @font-face {
     font-family: "HK Grotesk";
     font-style: italic;
-	src: url("assets/fonts/HKGrotesk/HKGrotesk-Italic.otf") format("otf");
+	src: url("/assets/fonts/HKGrotesk/HKGrotesk-LightItalic.otf") format("opentype");
+}
+@font-face {
+    font-family: "HK Grotesk";
+    font-weight: light;
+    font-style: italic;
+	src: url("/assets/fonts/HKGrotesk/HKGrotesk-LightItalic.otf") format("opentype");
 }
 
 //$fontBeauty: 'Nunito', sans-serif;
@@ -504,6 +515,37 @@ body{
     }
 }
 
+.people-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 8px;
+
+    @media only screen and (max-width: 723px) {
+        grid-template-columns: 1fr;
+    }
+
+    .person{
+        text-align: center;
+        div.img{
+            display: inline-block;
+            width: 150px;
+            height: 150px;
+            background-position: 50% 50%;
+            background-size: cover;
+            border-radius: 50%;
+        }
+        h3.name{
+            margin: 0px;
+            margin-top: 8px;
+        }
+        .sub.header{
+            font-style: italic;
+            color: #333;
+            margin-bottom: 8px;
+        }
+    }
+}
+
 .document-list{
 
     .list-entry{
@@ -547,7 +589,7 @@ body{
 
 .partner-list{
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     
     grid-column-gap: 20px;
     grid-row-gap: 15px;
@@ -559,7 +601,7 @@ body{
     @media only screen and (max-width: 723px) {
         display: block;
         text-align: center;
-        .logo{
+        .partner-logo{
             margin-top: 40px;
         }
     }
@@ -568,15 +610,17 @@ body{
         grid-column: span 2;
     }
 
-    .logo{
+    .partner-logo{
+        margin-top: 20px;
+        text-align: center;
         img{
-            width: 130px;
-            height: auto !important;
+            width: 80%;
         }
     }
     .info{
         .name{
             font-size: 1.2em;
+            text-align: center;
         }
         a{
             display: inline-block;
@@ -709,6 +753,10 @@ body{
         font-size: 1.2em;
         font-family: $fontSerif;
 
+        *{
+            font-family: $fontSerif;
+        }
+
         p{
             margin: 15px 0px !important;
             font-family: $fontSerif;
@@ -776,5 +824,16 @@ body{
                 }
             }
         }
+    }
+}
+
+.socmedia-share-buttons{
+    margin: 20px 0px;
+    & > *{
+        vertical-align: top;
+        display: inline-block;
+    }
+    & > script{
+        display: none;
     }
 }

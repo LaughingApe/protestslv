@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+
+
+{% block title %}{{ c[29]|raw }} | {% endblock %}
+
+
+
+{% block body %}
+
+    {% include "nav.html.twig" %}
+
+    <div class="standard-content">
+        <div class="ui text container">
+            <h1 class="ui horizontal divider huge header">{{ c[29]|raw }}</h1>
+
+            <div class="plain-content">
+                {{ c[30]|raw }} 
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+{% include "navjs.html.twig" %}
+
+<script>
+
+/*$(document).ready(function(){
+    $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        autoplay:true,
+        autoplayTimeout:2000,
+        autoplayHoverPause:true,
+        responsive:{
+            0:{
+                items:1
+            }
+        }
+    })
+});*/
+
+</script>
+{% endblock %}

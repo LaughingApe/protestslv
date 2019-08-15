@@ -1,0 +1,41 @@
+
+<div class="nav">
+    <div class="logo"><a href="http://www.protests.eu"><img src="/assets/images/protests.svg"/></a></div>
+    <div class="nav-bar">
+        <a class="nav-el" href="{{ path('index') }}"><span>{{ c[1]|raw }}</span></a>
+        <span class="dividing-el">|</span>
+
+        <a class="nav-el" href="{{ path('articles') }}"><span>{{ c[2]|raw }}</span></a>
+        <span class="dividing-el">|</span>
+
+        <a class="nav-el" href="{{ path('events') }}"><span>{{ c[36]|raw }}</span></a>
+        <span class="dividing-el">|</span>
+        
+        <span class="dividing-el">|</span>
+        <div class="nav-el">
+            <div class="nav-drop">
+                <div class="shadow-wrap">
+                    <a href="{{ path('contact') }}"><span>{{ c[5]|raw }}</span></a>
+                    <a href="{{ path('documents') }}"><span>{{ c[3]|raw }}</span></a>
+                </div>
+            </div>
+            <a href="{{ path('about') }}"><span>{{ c[4]|raw }}</span></a>
+        </div>
+        <span class="dividing-el">|</span>
+        <a class="nav-el" href="{{ path('join') }}"><span>{{ c[6]|raw }}</span></a>
+        <span class="dividing-el">|</span>
+        <a class="nav-el" href="{{ path('donate') }}"><span>{{ c[38]|raw }}</span></a>
+        <span class="dividing-el">|</span>
+        
+        <div class="language-stack">
+            {% if lang is not same as('lv') %}<a href="{{ path(route, params|merge({ _locale: 'lv' })) }}">Lat</a>{% endif %}
+            {% if lang is not same as('en') %}<a href="{{ path(route, params|merge({ _locale: 'en' })) }}">Eng</a>{% endif %}
+            <!--{% if lang is not same as('ru') %}<a href="{{ path(route, params|merge({ _locale: 'lv' })) }}">Рус</a>{% endif %}-->
+        </div>
+    </div>
+    <div class="nav-button-box">
+        <div class="nav-button" onclick="toggleNav();">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+</div>

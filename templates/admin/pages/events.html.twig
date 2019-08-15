@@ -54,7 +54,8 @@
                                 <td>{{ cycle(events, i).title }}</td>
                                 <td>{{ cycle(events, i).time0 }}<br/>{{ cycle(events, i).time1 }}</td>
                                 <td>{{ cycle(events, i).location }}</td>
-                                <td>{{ cycle(events, i).description|raw }}</td>
+                                {% set short_descr = (cycle(events, i).description|raw) %}
+                                <td>{{ cycle(events, i).description|slice(0, 100)|raw }} (..)</td>
                                 <td>
                                     {% if cycle(events, i).finished is same as(0) %}
                                         Upcomming

@@ -1,0 +1,79 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ article.title }} | {% endblock %}
+
+{% block head %}
+    <meta property="og:image" content="{{ uploads_directory }}{{ article.image }}"/>
+    <meta property="og:image:url" content="{{ uploads_directory }}{{ article.image }}"/>
+    
+    <meta property="og:title" content="{{ article.title|striptags }}" />
+    <meta property="og:url" content="{{ fullURL }}" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ProtestsYouth">
+    <meta name="twitter:creator" content="@ProtestsYouth">
+    <meta name="twitter:title" content="{{ article.title|striptags }}">
+    <meta name="twitter:description" content="{{ article.text|striptags }}">
+    <meta name="twitter:text:description" content="{{ article.text|striptags }}">
+    <meta name="twitter:image" content="{{ uploads_directory }}{{ article.image }}">
+
+    <meta name="author" content="{{ articleauthor }}">
+    <meta name="keywords" content="{% for tag in taglist %}{{ tag }}, {% endfor %}jaunatne, jaunatnes organizācija, Protests">
+    <meta name="description" content="{{ article.text|striptags }}">
+{% endblock %}
+
+{% block body %}
+
+    {% include "nav.html.twig" %}
+
+    <div class="standard-content">
+        <div class="ui text container">
+
+            <div class="article-container">
+                <h1>{{ article.title|raw }}</h1>
+                <span class="date">{{ article.time|date('d.m.Y H:i') }}</span><br/>
+                <a href="{{ path('author', {author: article.author}) }}" class="author">{{ articleauthor }}</a>
+                <img class="title-img" src="/assets/uploads/{{ article.image }}"/>
+                <div class="image-descr">{{ article.description }}</div>   
+                <div class="text">
+                    {{ article.text|raw }}
+                </div>
+            </div>            
+
+            <div class="ui labels">
+            {% for key, tag in taglist %}
+                <a href="{{ path('tag', {tag: taglinks[key]}) }}" class="ui big label">{{ tag }}</a>
+            {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+{% include "navjs.html.twig" %}
+
+<script>
+
+/*$(document).ready(function(){
+    $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        autoplay:true,
+        autoplayTimeout:2000,
+        autoplayHoverPause:true,
+        responsive:{
+            0:{
+                items:1
+            }
+        }
+    })
+});*/
+
+</script>
+{% endblock %}

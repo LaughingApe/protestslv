@@ -1,0 +1,171 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}My Account{% endblock %}
+
+
+{% block body %}
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">My Account</div>
+                </div>
+
+
+                <h1 class="ui header">
+                    My Account
+                    <div class="sub header">Change your password or display name</div>
+                </h1>
+
+                <div class="ui divider"></div>
+
+                {{ form_start(form, { 'attr' : { 'class': 'ui form', 'onsubmit': 'submitted();' } }) }}
+                
+                <div class="field">
+                    {{ form_label(form.name) }}
+                    {{ form_errors(form.name) }}
+                    {{ form_widget(form.name) }}
+                    {{ form_help(form.name) }}
+                </div>
+
+                <div class="field" id="passwordFirstField">
+                    {{ form_label(form.password.first) }}
+                    {{ form_errors(form.password.first) }}
+                    {{ form_widget(form.password.first, { 'attr' : { 'oninput': 'comparePasswords(false);'  } }) }}
+                    {{ form_help(form.password.first) }}
+                </div>
+                <div class="field" id="passwordSecondField">
+                    {{ form_label(form.password.second) }}
+                    {{ form_errors(form.password.second) }}
+                    {{ form_widget(form.password.second, { 'attr' : { 'oninput': 'comparePasswords(false);'  } }) }}
+                    {{ form_help(form.password.second) }}
+                </div>
+                <div class="ui divider"></div>
+                <div class="field">
+                    {{ form_label(form.currentPassword) }}
+                    {{ form_errors(form.currentPassword) }}
+                    {{ form_widget(form.currentPassword) }}
+                    {{ form_help(form.currentPassword) }}
+                </div>
+                
+                {{ form_widget(form.save, { 'attr' : { 'class': 'ui blue button'  } }) }}
+                
+                {{ form_end(form) }}
+
+            </div>
+
+    </div>
+
+    <div class="ui mini modal" id="successModal">
+        <div class="ui icon header">
+            <i class="green check icon"></i>
+            Changes saved
+        </div>
+        <div class="actions">
+            <button type="button" onclick="closeModals();" class="ui button">
+                <i class="remove icon"></i>
+                Ok
+            </button>
+        </div>
+    </div>
+
+    <div class="ui mini modal" id="wrongPasswordModal">
+        <div class="ui icon header">
+            <i class="red close icon"></i>
+            Wrong password
+        </div>
+        <div class="content">
+            The (current) password you entered was wrong. Please, try again!
+        </div>
+        <div class="actions">
+            <button type="button" onclick="closeModals();" class="ui button">
+                Ok
+            </button>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script>
+
+    function comparePasswords( full ){
+        if( document.getElementById('form_password_second').value != ""  ){
+            if( document.getElementById('form_password_first').value != document.getElementById('form_password_second').value ){
+                if( $("#passwordFirstField").hasClass("error") == false ){ 
+                    $("#passwordFirstField").addClass("error");
+                    $("#passwordSecondField").addClass("error");
+                }
+            } else {
+                if( $("#passwordFirstField").hasClass("error") ){ 
+                    $("#passwordFirstField").removeClass("error");
+                    $("#passwordSecondField").removeClass("error");
+                }
+            }
+        } else if( document.getElementById('form_password_first').value == "" ){
+            if( $("#passwordFirstField").hasClass("error") ){ 
+                $("#passwordFirstField").removeClass("error");
+                $("#passwordSecondField").removeClass("error");
+            }
+        }
+    }
+
+    function closeModals(){
+        $('#successModal').modal('hide');
+        $('#wrongPasswordModal').modal('hide');
+    }
+
+    $(document).ready(function() {
+        {% if message is same as("success")  %}
+            $('#successModal').modal('show');
+        {% endif %}
+        {% if message is same as("wrong-password")  %}
+            $('#wrongPasswordModal').modal('show');
+        {% endif %}
+
+
+        $('.ui.form')
+            .form({
+                fields: {
+                    form_name: {
+                        identifier: 'form_name',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter your Display name'
+                        }
+                        ]
+                    },
+                    form_password_second: {
+                        identifier: 'form_password_second',
+                        rules: [
+                        {
+                            type   : 'match[form_password_first]',
+                            prompt : 'Passwords do not match'
+                        }
+                        ]
+                    },
+                    form_currentPassword: {
+                        identifier: 'form_currentPassword',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'You have to enter your current password to approve changes'
+                        }
+                        ]
+                    }
+                }
+            });
+    });
+
+</script>
+
+{% endblock %}

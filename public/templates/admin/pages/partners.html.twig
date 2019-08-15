@@ -1,0 +1,124 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}Partners{% endblock %}
+
+{% block body %}
+
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">Partners</div>
+                </div>
+
+                <h1 class="ui header">Partners
+                    <div class="sub header">Manage orgnisation's partner list</div>
+                </h1>
+
+                <div class="ui hidden divider"></div>
+
+                <a href="{{ path('adminPartnersNew') }}" class="ui labeled icon positive button">
+                    <i class="plus icon"></i>
+                    Add Partner
+                </a>
+
+                <div class="ui hidden divider"></div>
+
+                <table class="ui celled table">
+                    <thead>
+                        <tr><th>Id</th>
+                        <th>Logo</th>
+                        <th>Name</th>
+                        <th>Link</th>
+                        <th>Text</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr></thead>
+                    <tbody>
+                        {% if partners is not same as("NO") %}
+                            {% set n = partners|length %}
+                            {% set n = n - 1 %}
+                            {% for i in 0..n %}
+                                
+                                <tr>
+                                    <td>{{ cycle(partners, i).id }}</td>
+                                    <td><img class="partner-logo" src="/assets/uploads/{{ cycle(partners, i).logo }}"/></td>
+                                    <td>{{ cycle(partners, i).name }}</td>
+                                    <td>{{ cycle(partners, i).link }}</td>
+                                    <td>{{ cycle(partners, i).description|raw }}</td>
+                                    <td style="text-align: center;">
+                                        {% set pre = i - 1 %}
+                                        {% set nex = i + 1 %}
+                                        {% if i is not same as(0) %}
+                                            <a onclick="swapElements({{ cycle(partners, i).id }}, {{ cycle(partners, pre).id }});" class="change-order-button"><i class="fas fa-arrow-alt-circle-up"></i></a><br/>
+                                        {% endif %}
+                                        {% if i is not same as(n) %}
+                                            <a onclick="swapElements({{ cycle(partners, i).id }}, {{ cycle(partners, nex).id }});" class="change-order-button"><i class="fas fa-arrow-alt-circle-down"></i></a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="selectable warning"><a href="{{ path('adminPartnersEdit', {'id': cycle(partners, i).id}) }}">Edit</a></td>
+                                    <td class="selectable negative"><a href="#" onclick="tryDelete({{ cycle(partners, i).id }});">Remove</a></td>
+                                </td>
+                                
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+                    
+            </div>
+
+    </div>
+
+    {% if partners is not same as("NO") %}
+        {% for partner in partners %}
+            <div class="ui mini modal" id="tryDeleteModal{{ partner.id }}">
+                <div class="ui header">
+                    Delete Partner?
+                </div>
+                <div class="center aligned content">
+                    <p>Do you really want to <b>permanently</b> delete partner titled "{{ partner.name }}"?</p>
+                </div>
+                <div class="actions">
+                    <button type="button" onclick="closeModal({{ partner.id }});" class="ui cancel button">
+                        <i class="remove icon"></i>
+                        No
+                    </button>
+                    <button type="button" onclick="deletePartner({{ partner.id }})" class="ui red ok button">
+                        <i class="trash icon"></i>
+                        Yes
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+    function closeModal(id){
+        $('#tryDeleteModal'+id).modal('hide');
+    }
+    function tryDelete(id){
+        $('#tryDeleteModal'+id).modal('show');
+    }
+    function deletePartner(id){
+        window.location.href = "/admin/partners/delete/" + id;
+    }
+
+    function swapElements(a, b){
+        window.location.href = "/admin/partners/swap?id0=" + a + "&id1=" + b;
+    }
+</script>
+{% endblock %}

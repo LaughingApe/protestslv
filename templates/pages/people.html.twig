@@ -1,0 +1,58 @@
+{% extends "base.html.twig" %}
+
+
+
+{% block title %}{{ c[61]|raw }} | {% endblock %}
+
+
+
+{% block body %}
+
+    {% include "nav.html.twig" %}
+
+    <div class="standard-content">
+        <div class="ui text container">
+            <h1 class="ui horizontal divider huge header">{{ c[61]|raw }}</h1>
+
+            <div class="people-grid">
+                {% for person in people %}
+                    <div class="person">
+                        <div class="img" style="background-image: URL('/assets/uploads/{{ person.image }}');"></div>
+                        <h3 class="ui header name">{{ person.name }}</h3>
+                        <div class="sub header">{{ person.post }}</div>
+                        <div class="descr">{{ person.description|raw }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+{% include "navjs.html.twig" %}
+
+<script>
+
+/*$(document).ready(function(){
+    $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        autoplay:true,
+        autoplayTimeout:2000,
+        autoplayHoverPause:true,
+        responsive:{
+            0:{
+                items:1
+            }
+        }
+    })
+});*/
+
+</script>
+{% endblock %}

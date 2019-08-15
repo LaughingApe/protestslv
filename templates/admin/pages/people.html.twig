@@ -1,0 +1,124 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block title %}Our People{% endblock %}
+
+{% block body %}
+
+    {% include "admin/nav.html.twig" %}
+    
+    <div class="dimmed pusher content-with-menu">
+
+            <div class="ui text container">
+
+                
+
+                <div class="ui breadcrumb">
+                    <a href="{{ path('adminIndex') }}" class="section">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">Our People</div>
+                </div>
+
+                <h1 class="ui header">Our People
+                    <div class="sub header">Manage orgnisation's "Our People" list</div>
+                </h1>
+
+                <div class="ui hidden divider"></div>
+
+                <a href="{{ path('adminPeopleNew') }}" class="ui labeled icon positive button">
+                    <i class="plus icon"></i>
+                    Add Person
+                </a>
+
+                <div class="ui hidden divider"></div>
+
+                <table class="ui celled table">
+                    <thead>
+                        <tr><th>Id</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Post</th>
+                        <th>Description</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr></thead>
+                    <tbody>
+                        {% if people is not same as("NO") %}
+                            {% set n = people|length %}
+                            {% set n = n - 1 %}
+                            {% for i in 0..n %}
+                                
+                                <tr>
+                                    <td>{{ cycle(people, i).id }}</td>
+                                    <td><img class="partner-logo" src="/assets/uploads/{{ cycle(people, i).image }}"/></td>
+                                    <td>{{ cycle(people, i).name }}</td>
+                                    <td>{{ cycle(people, i).post }}</td>
+                                    <td>{{ cycle(people, i).description|raw }}</td>
+                                    <td style="text-align: center;">
+                                        {% set pre = i - 1 %}
+                                        {% set nex = i + 1 %}
+                                        {% if i is not same as(0) %}
+                                            <a onclick="swapElements({{ cycle(people, i).id }}, {{ cycle(people, pre).id }});" class="change-order-button"><i class="fas fa-arrow-alt-circle-up"></i></a><br/>
+                                        {% endif %}
+                                        {% if i is not same as(n) %}
+                                            <a onclick="swapElements({{ cycle(people, i).id }}, {{ cycle(people, nex).id }});" class="change-order-button"><i class="fas fa-arrow-alt-circle-down"></i></a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="selectable warning"><a href="{{ path('adminPeopleEdit', {'id': cycle(people, i).id}) }}">Edit</a></td>
+                                    <td class="selectable negative"><a href="#" onclick="tryDelete({{ cycle(people, i).id }});">Remove</a></td>
+                                </td>
+                                
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+                    
+            </div>
+
+    </div>
+
+    {% if people is not same as("NO") %}
+        {% for person in people %}
+            <div class="ui mini modal" id="tryDeleteModal{{ person.id }}">
+                <div class="ui header">
+                    Delete Person?
+                </div>
+                <div class="center aligned content">
+                    <p>Do you really want to <b>permanently</b> delete person titled "{{ person.name }}"?</p>
+                </div>
+                <div class="actions">
+                    <button type="button" onclick="closeModal({{ person.id }});" class="ui cancel button">
+                        <i class="remove icon"></i>
+                        No
+                    </button>
+                    <button type="button" onclick="deletePerson({{ person.id }})" class="ui red ok button">
+                        <i class="trash icon"></i>
+                        Yes
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+    function closeModal(id){
+        $('#tryDeleteModal'+id).modal('hide');
+    }
+    function tryDelete(id){
+        $('#tryDeleteModal'+id).modal('show');
+    }
+    function deletePerson(id){
+        window.location.href = "/admin/people/delete/" + id;
+    }
+
+    function swapElements(a, b){
+        window.location.href = "/admin/people/swap?id0=" + a + "&id1=" + b;
+    }
+</script>
+{% endblock %}

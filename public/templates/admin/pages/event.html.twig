@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+
+
+{% block title %}{{ event.title }} | {% endblock %}
+
+
+
+{% block body %}
+
+    {% include "nav.html.twig" %}
+
+    <div class="standard-content">
+        <div class="ui text container">
+
+            <div class="standard-container">
+                <h1 class="ui header">{{ event.title|raw }} {% if event.finished is same as(1) %}<span class="happening-now at-header">Notiek tagad</span>{% endif %}{% if event.finished is same as(2) %}<span class="already-finished at-header">Pagājis</span>{% endif %}</h1>
+                
+                <div class="time-box">
+                    <div><span class="ic"><i class="fas fa-map-marker"></i></span> {{ event.location }}</div> 
+                    <div><span class="ic"><i class="fas fa-clock"></i></span> {{ event.time0 }} {{ event.time1 }}</div> 
+                </div>
+
+                <div class="text">
+                    {{ event.description|raw }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+{% include "navjs.html.twig" %}
+
+<script>
+
+/*$(document).ready(function(){
+    $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        autoplay:true,
+        autoplayTimeout:2000,
+        autoplayHoverPause:true,
+        responsive:{
+            0:{
+                items:1
+            }
+        }
+    })
+});*/
+
+</script>
+{% endblock %}

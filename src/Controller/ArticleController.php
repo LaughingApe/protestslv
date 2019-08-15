@@ -51,8 +51,9 @@ class ArticleController extends AbstractController{
         $repository = $this->getDoctrine()->getRepository(Article::class);
         $article = $repository->find( $request->query->get('id') );      
 
-        $this->forward('App\Controller\AdminController::removeImageFile', array(
-            'imageName'  => $article->getImage(),
+        $resp = new Response("nothing");
+        $resp = $this->forward('App\Controller\AdminController::removeFile', array(
+            'fileName'  => $article->getImage(),
         ));
 
         $article->setImage(null);
@@ -61,19 +62,19 @@ class ArticleController extends AbstractController{
         $entityManager->persist($article);
         $entityManager->flush();
 
-        return new Response( "+" );
+        return $resp;
     }
 
     public function removeArticleImages(SessionInterface $session, Request $request, UserInterface $user){
         $repository = $this->getDoctrine()->getRepository(Article::class);
         $article = $repository->find( $request->query->get('id') );      
 
-
+        $deletionResponse = new Response ("nothing");
         $ids = $request->query->get('ids');
         $images = $article->getImages();
         for($i = 0; $i<sizeof($ids); $i++){
-            $this->forward('App\Controller\AdminController::removeImageFile', array(
-                'imageName'  => $images[$ids[$i]],
+            $deletionResponse = $this->forward('App\Controller\AdminController::removeFile', array(
+                'fileName'  => $images[$ids[$i]],
             ));
             $images[$ids[$i]] = "";
         }
@@ -89,7 +90,7 @@ class ArticleController extends AbstractController{
         $entityManager->persist($article);
         $entityManager->flush();
 
-        return new Response( "+" );
+        return $deletionResponse;
     }
 
     public function newArticle(SessionInterface $session, Request $request, UserInterface $user){
@@ -101,7 +102,7 @@ class ArticleController extends AbstractController{
             ->add('title', TextType::class)
             ->add('link', TextType::class)
             ->add('image', FileType::class, array('required' => false))
-            ->add('description', TextType::class, array('label' => 'Image description'))
+            ->add('description', TextareaType::class, array('label' => 'Image description'))
             ->add('text', TextareaType::class)
             ->add('tags', TextType::class, array(
                 'data' => '[]'
@@ -205,7 +206,7 @@ class ArticleController extends AbstractController{
             ->add('title', TextType::class)
             ->add('link', TextType::class)
             ->add('image', FileType::class, array('required' => false))
-            ->add('description', TextType::class, array('label' => 'Image description'))
+            ->add('description', TextareaType::class, array('label' => 'Image description'))
             ->add('text', TextareaType::class)
             ->add('tags', TextType::class, array(
                 'data' => '[]'
@@ -239,9 +240,10 @@ class ArticleController extends AbstractController{
             if( ( $form->get('image')->getData() ) === null ){
                 $article->setImage( $articleWithImages->getImage() );
             } else {
-                $this->forward('App\Controller\AdminController::removeImageFile', array(
-                    'imageName'  => $articleWithImages->getImage(),
-                ));
+                if( $articleWithImages->getImage() !== null )
+                    $this->forward('App\Controller\AdminController::removeFile', array(
+                        'fileName'  => $articleWithImages->getImage(),
+                    ));
                 $file = $form->get('image')->getData();
                 $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
                 try {
@@ -296,15 +298,15 @@ class ArticleController extends AbstractController{
         $article = $repository->find( $request->attributes->get('id') );
 
         if( $article->getImage() !== null )
-            $this->forward('App\Controller\AdminController::removeImageFile', array(
-                'imageName'  => $article->getImage(),
+            $this->forward('App\Controller\AdminController::removeFile', array(
+                'fileName'  => $article->getImage(),
             ));
         
         if( $article->getImages() !== null ){
             $images = $article->getImages();
             foreach( $images as $image ){
-                $this->forward('App\Controller\AdminController::removeImageFile', array(
-                    'imageName'  => $image,
+                $this->forward('App\Controller\AdminController::removeFile', array(
+                    'fileName'  => $image,
                 ));
             }
         }
