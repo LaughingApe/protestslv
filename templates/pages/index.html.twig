@@ -81,10 +81,10 @@
     </div>
     
     <div class="white stripe">
-        {% if ( ongoing is same as(true) ) or ( upcoming is same as(true) ) %}
-
-            <div class="ui text container">
-                <h1 class="ui horizontal divider header">{{ c[42]|raw }}</h1>
+        <div class="ui text container">
+            <h1 class="ui horizontal divider header">{{ c[42]|raw }}</h1>
+                
+                {% if ( ongoing is same as(true) ) or ( upcoming is same as(true) ) %}
                 <div class="event-list">
                     {% for event in events %}
                         {% if ( event.finished is same as(1) ) or ( event.finished is same as(0) ) %}
@@ -102,25 +102,18 @@
                         {% endif %}
                     {% endfor %}
                 </div>
+                {% else %}
+                    <div class="centered-content-container" style="margin-top: 25px; margin-bottom: 35px; font-size:1.1em;">
+                        <i>{{ c[62]|raw }}</i>
+                    </div>
+                {% endif %}
 
-            </div>
-        {% endif %}
+                <div class="centered-content-container">
+                    <a href="{{ path('partners') }}" class="button dark">{{ c[63]|raw }}</a>
+                </div>
 
-        <div class="ui text container">
-            <h1 class="ui horizontal divider header">{{ c[16]|raw }}</h1>
-            <div class="ui hidden divider"></div>
-            <div class="socmedia-block">
-                <a href="https://www.facebook.com/protestsjaunatne" target="_blank" class="ui segment fb">
-                    <i class="fab fa-facebook-f"></i>
-                </a> 
-                <a href="https://twitter.com/ProtestsYouth" target="_blank" class="ui segment tw">
-                    <i class="fab fa-twitter"></i>
-                </a> 
-                <a href="https://www.instagram.com/protestsjaunatne/" target="_blank" class="ui segment ig">
-                    <i class="fab fa-instagram"></i>
-                </a> 
-            </div>
         </div>
+
     </div>
 
     <div class="violet stripe">
@@ -138,11 +131,43 @@
             
         </div>
     </div>
-    
 
-                
-        
+    <div class="white stripe">
+        <div class="ui text container">
+            <h1 class="ui horizontal divider header">{{ c[16]|raw }}</h1>
+            <div class="ui hidden divider"></div>
+            <div class="socmedia-block">
+                <a href="https://www.facebook.com/protestsjaunatne" target="_blank" class="ui segment fb">
+                    <i class="fab fa-facebook-f"></i>
+                </a> 
+                <a href="https://twitter.com/ProtestsYouth" target="_blank" class="ui segment tw">
+                    <i class="fab fa-twitter"></i>
+                </a> 
+                <a href="https://www.instagram.com/protestsjaunatne/" target="_blank" class="ui segment ig">
+                    <i class="fab fa-instagram"></i>
+                </a> 
+            </div>
+        </div>
+    </div>
+
+    <div class="fyeg stripe">
+        <div class="ui text container">
+
+            <img src="/assets/images/FYEG-logo.png" alt="Logo of Federation of Young European Greens"/>
+            <div class="description">
+                {% if lang is same as('lv') %}
+                    Kopš 2019. gada 17. augusta "Protests" ir <a href="https://fyeg.org/" target="_blank">Eiropas jauno zaļo federācijas (FYEG)</a> kandidātdalīborganizācija.
+                {% endif %}
+                {% if lang is same as('en') %}
+                    Since August 17, 2019, "Protests" is a candidate member organisation of the <a href="https://fyeg.org/" target="_blank">Federation of Young European Greens</a>.
+                {% endif %}
+                {% if lang is same as('ru') %}
+                    С 17 августа 2019 "Protests" организация-кандидат <a href="https://fyeg.org/" target="_blank">Федерации молодых европейских зеленых (FYEG)</a>.
+                {% endif %}
+            </div>
             
+        </div>
+    </div>
             <!---->
 
 {% endblock %}

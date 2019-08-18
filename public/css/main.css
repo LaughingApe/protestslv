@@ -329,6 +329,42 @@ body {
 .stripe.violet * {
   color: white;
 }
+.stripe.fyeg {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #128C3B;
+  color: white;
+}
+.stripe.fyeg * {
+  color: white;
+}
+.stripe.fyeg > div {
+  display: flex;
+  align-items: center;
+}
+@media only screen and (max-width: 723px) {
+  .stripe.fyeg > div {
+    flex-direction: column;
+  }
+  .stripe.fyeg > div .description {
+    padding: 0px;
+    padding-top: 40px;
+  }
+}
+.stripe.fyeg > div img {
+  height: 150px;
+  display: inline-block;
+}
+.stripe.fyeg > div .description {
+  padding-left: 40px;
+  font-size: 1.2em;
+}
+.stripe.fyeg > div .description a {
+  font-weight: bold;
+}
+.stripe.fyeg > div .description a:hover {
+  text-decoration: underline;
+}
 
 .news-grid {
   display: grid;
@@ -508,6 +544,30 @@ body {
   font-size: 1.2em;
   color: rgba(0, 0, 0, 0.87);
   transition: color 0.2s;
+}
+
+.fyeg-box {
+  display: flex;
+  align-items: center;
+  margin: 40px 0px;
+  padding: 15px 25px;
+  border: 10px solid #128C3B;
+}
+.fyeg-box img {
+  display: block;
+  height: 160px;
+}
+.fyeg-box .description {
+  padding-left: 25px;
+  font-size: 1.1em;
+  color: black;
+}
+.fyeg-box .description a {
+  color: black;
+  font-weight: bold;
+}
+.fyeg-box .description a:hover {
+  text-decoration: underline;
 }
 
 .partner-list {

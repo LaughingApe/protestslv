@@ -33,6 +33,7 @@ $violetDarker: #402c46;
 $facebook: #3b5998;
 $twitter: #2795e9;
 $instagram: #395c79;
+$fyegGreen: #128C3B;
 
 *{
     box-sizing: border-box;
@@ -386,6 +387,46 @@ body{
             color: white;
         }
     }
+
+    &.fyeg{
+        padding-top: 40px;
+        padding-bottom: 40px;
+
+        background-color: $fyegGreen;
+
+        color: white;
+        & *{
+            color: white;
+        }
+
+        & > div{
+            display: flex;
+            align-items: center;
+
+            @media only screen and (max-width: 723px) {
+                flex-direction: column;
+                .description{
+                    padding: 0px;
+                    padding-top: 40px;
+                }
+            }
+
+            img{
+                height: 150px;
+                display: inline-block;
+            }
+            .description{
+                padding-left: 40px; 
+                font-size: 1.2em;
+                a{
+                    font-weight: bold;
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .news-grid{
@@ -583,6 +624,37 @@ body{
             font-size: 1.2em;
             color: rgba(0,0,0,.87);
             transition: color 0.2s;
+        }
+    }
+}
+
+.fyeg-box{
+    display: flex;
+    align-items: center;
+
+    margin: 40px 0px;
+    padding: 15px 25px;
+
+    //background-color: $fyegGreen;
+
+    border: 10px solid $fyegGreen;
+
+    img{
+        display: block;
+        height: 160px;
+    }
+
+    .description{
+        padding-left: 25px;
+
+        font-size: 1.1em;
+        color: black;;
+        a{
+            color: black;
+            font-weight: bold;
+            &:hover{
+                text-decoration: underline;
+            }
         }
     }
 }
