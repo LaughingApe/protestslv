@@ -1,0 +1,138 @@
+
+{% set route = app.request.attributes.get('_route') %}
+{% set route_params = app.request.attributes.get('_route_params') %}
+{% set params = route_params|merge(app.request.query.all) %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <link rel="alternate" href="{{ path(route, params|merge({ _locale: 'lv' })) }}" hreflang="x-default" />
+        <link rel="alternate" href="{{ path(route, params|merge({ _locale: 'lv' })) }}" hreflang="lv" />
+        <link rel="alternate" href="{{ path(route, params|merge({ _locale: 'en' })) }}" hreflang="en" />
+        <!--<link rel="alternate" href="{{ path(route, params|merge({ _locale: 'lv' })) }}" hreflang="ru" />-->
+
+        <link rel="stylesheet" href="/plugins/owlcarousel/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="/plugins/owlcarousel/assets/owl.theme.default.min.css">
+
+        <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
+		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+
+        <link rel="stylesheet" type="text/css" href="/node_modules/semantic-ui/dist/semantic.min.css">
+        <script src="/node_modules/semantic-ui/dist/semantic.min.js"></script>      
+
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Enriqueta|Lora" rel="stylesheet">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135967204-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-135967204-1');
+        </script>
+
+        <script type="text/javascript" src="/js/script.js"></script>        
+        <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+
+        <link rel="icon" type="image/png" href="/assets/images/climate_favicon.png" />
+
+
+        <title>Gājiens nākotnei</title>
+    </head>
+    <body>
+
+        <div class="climate-march-welcome-view">
+            <div class="content">
+                <h1>Gājiens nākotnei</h1>
+                <div class="subheader">Pieprasām atzīt klimata krīzi!</div>
+            </div>
+        </div>
+
+        <div class="climate-social-media-icons">
+            <a href="https://www.facebook.com/fridaysforfuturelatvia/" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/FFF_Latvia" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.instagram.com/fridays_for_future_latvia/" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+
+        <div class="white stripe">
+            <div class="ui text container">
+                <h2 class="ui horizontal divider huge header">Par ko ir gājiens?</h2>
+
+                <div class="plain-content fff">
+                    <p>Zinātnieku brīdīnājumi liecina, ka mūsu nākotni apdraud <span class="text-hl">klimata krīze</span>. Tādēļ kustība “Fridays For Future Latvia” sadarbībā ar jaunatnes organizāciju “Protests” <span class="text-hl">20. septembrī</span> rīko visiem atvērtu pasākumu <span class="text-hl">Gājiens nākotnei</span>, kura mērķis ir pievērst mediju un politiķu uzmanību klimata krīzei un nepieciešamajai rīcībai.</p>
+                    <p>Gājiens nākotnei ir daļa no visā pasaulē notiekošā Global Strike for Future, kurā pēc prognozēm piedalīsies vairāk nekā miljons dalībnieku.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="climate-green stripe">
+            <div class="ui text container">
+                <h2 class="ui horizontal divider huge header">Ko mēs vēlamies panākt?</h2>
+
+                <div class="plain-content fff">
+                    <p>Politiķiem un medijiem <span class="text-hl">jāatzīst klimata krīze</span>, kā arī tas, ka esošā rīcība nav pietiekama, lai to risinātu. Diemžēl zinātnieku secinājumi un ieteikumi par klimata pārmaiņu iespējamām sekām paliek nesadzirdēti, ja mediji par tiem nerunā pietiekami daudz. Nepieciešama <span class="text-hl">atbildīgāka rīcība no politiķu puses.</span></p>
+                </div>
+
+            </div>
+        </div>
+
+         <div class="white stripe">
+            <div class="ui text container">
+                <h2 class="ui horizontal divider huge header">Kāpēc piedalīties? Ko tas maina?</h2>
+
+                <div class="plain-content fff">
+                    <p>Pēdējā gada masveida klimata <span class="text-hl">gājieni ir būtiski mainījuši sabiedrības viedokli</span> par klimata pārmaiņām. Tie liek par to vairāk runāt medijiem un politiķiem, tuvinot mūs zinātnieku ieteiktajiem risinājumiem.</p>
+                    <p>Piedaloties Gājienā nākotnei Tev ir iespēja parādīt, ka steidzami nepieciešams darīt daudz vairāk, lai sagabātu mūsu nākotni. Katra cilvēka dalība ir svarīga!</p>  
+                </div>
+
+            </div>
+        </div>
+
+        <div class="climate-special stripe">
+            <div class="ui text container">
+                <h2 class="ui horizontal divider huge header"><span class="text-hl">Kā es varu palīdzēt?</span></h2>
+
+                <div class="plain-content fff">
+                    <p class="list-item">
+                        <span class="text-hl-2">Piedalīties gājienā</span> – atzīmējies <a href="https://www.facebook.com/events/2019902438188677/" target="_blank">Facebook pasākumā</a> un atnāc 20. septembrī pulksten 16.30 uz Vērmanes dārzu!</li>
+                    </p>
+                    <p class="list-item">
+                        <span class="text-hl-2">Dalīties ar pasākumu</span> – pastāsi par Gājienu saviem draugiem, ielūdz uz <a href="https://www.facebook.com/events/2019902438188677/" target="_blank">Facebook pasākumu</a>!</li>
+                    </p>
+                    <p class="list-item">
+                        <span class="text-hl-2">Palīdzi rīkošanā!</span> (šeit – <a href="http://ejuz.lv/klimatagajiens" target="_blank">http://ejuz.lv/klimatagajiens</a>)</li>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="cookie-alert">
+            <div class="flex">
+                <div class="text">{{ c[51]|raw }}</div>
+                <div class="buttons">
+                    <a class="speclink" href="{{ path('privacy') }}" target="_blank">{{ c[52] }}</a>
+                    <button onclick="stopCookieAlert();" class="button white">{{ c[53] }}</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="/plugins/owlcarousel/owl.carousel.min.js"></script>
+        {% include "navjs.html.twig" %}
+
+    </body>
+</html>
+

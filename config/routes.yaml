@@ -129,6 +129,9 @@ privacy:
     requirements:
       _locale: '%app.locales%'
 
+climateMarch:
+    path: /gajiensnakotnei
+    controller: App\Controller\PagesController::climateMarch
 
 
 adminLogout:

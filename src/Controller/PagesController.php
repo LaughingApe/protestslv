@@ -469,6 +469,15 @@ class PagesController extends AbstractController
         ]);//*/
     }
 
+    public function climateMarch(Request $request){
+
+        return $this->render('pages/climateMarch.html.twig', [
+            'controller_name' => 'PagesController',
+            'lang' => $request->getLocale(),
+            'c' =>  $this->getContentArray($request)
+        ]);//*/
+    }
+
     /*public function number()
     {
         $number = random_int(0, 100);

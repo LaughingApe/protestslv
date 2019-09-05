@@ -322,11 +322,53 @@ body {
 .stripe.white {
   background-color: white;
 }
+.stripe.white .text-hl {
+  padding: 2px 5px;
+  background-color: #ffd000;
+}
 .stripe.violet {
   background-color: #54365c;
   color: white;
 }
 .stripe.violet * {
+  color: white;
+}
+.stripe.climate-green {
+  background-color: #1a7240;
+  color: white;
+}
+.stripe.climate-green * {
+  color: white;
+}
+.stripe.climate-green .text-hl {
+  padding: 2px 5px;
+  color: black;
+  background-color: #ffd000;
+}
+.stripe.climate-special {
+  padding-top: 160px;
+  padding-bottom: 160px;
+  background-color: #404a3c;
+  color: white;
+}
+.stripe.climate-special * {
+  color: white;
+}
+.stripe.climate-special .text-hl {
+  padding: 2px 5px;
+  color: black;
+  background-color: #ffd000;
+}
+.stripe.climate-special .text-hl-2 {
+  padding: 2px 5px;
+  color: black;
+  background-color: #ffffff;
+}
+.stripe.climate-special a {
+  color: #aaa;
+  transition: color 0.2s;
+}
+.stripe.climate-special a:hover {
   color: white;
 }
 .stripe.fyeg {
@@ -687,6 +729,13 @@ body {
 .plain-content {
   margin: 30px 0px;
 }
+.plain-content.fff {
+  font-size: 1.5rem;
+}
+.plain-content.fff .list-item {
+  margin: 3rem 0px;
+  list-style: none;
+}
 
 .article-container img.title-img {
   width: 100%;
@@ -783,6 +832,54 @@ body {
 }
 .socmedia-share-buttons > script {
   display: none;
+}
+
+.climate-march-welcome-view {
+  width: 100%;
+  height: 100vh;
+  background: #1a7240;
+  background: -moz-linear-gradient(45deg, #1a7240 0%, #27946a 50%, #3fd4b7 100%);
+  background: -webkit-linear-gradient(45deg, #1a7240 0%, #27946a 50%, #3fd4b7 100%);
+  background: linear-gradient(45deg, #1a7240 0%, #27946a 50%, #3fd4b7 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1a7240",endColorstr="#3fd4b7",GradientType=1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10%;
+}
+.climate-march-welcome-view .content {
+  text-align: center;
+  color: white;
+}
+.climate-march-welcome-view .content .pusher {
+  height: 50px;
+}
+.climate-march-welcome-view .content h1 {
+  margin: 5px 0px;
+  font-size: 5rem;
+  text-transform: uppercase;
+  font-family: "HK Grotesk", sans-serif;
+  text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
+}
+.climate-march-welcome-view .content div.subheader {
+  margin-top: 1rem;
+  font-size: 2rem;
+  font-family: "HK Grotesk", sans-serif;
+  font-style: italic;
+}
+
+.climate-social-media-icons {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.8em;
+  padding: 1.5rem;
+}
+.climate-social-media-icons a {
+  color: white;
+  padding: 1px;
+  margin: 1rem;
 }
 
 /*# sourceMappingURL=main.css.map */
