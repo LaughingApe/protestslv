@@ -861,20 +861,30 @@ body {
   font-family: "HK Grotesk", sans-serif;
   text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
 }
-.climate-march-welcome-view .content div.subheader {
+@media only screen and (max-width: 723px) {
+  .climate-march-welcome-view .content h1 {
+    font-size: 3rem;
+  }
+}
+.climate-march-welcome-view .content .subheader {
   margin-top: 1rem;
   font-size: 2rem;
   font-family: "HK Grotesk", sans-serif;
   font-style: italic;
 }
+@media only screen and (max-width: 723px) {
+  .climate-march-welcome-view .content .subheader {
+    font-size: 1.8rem;
+  }
+}
 
 .climate-social-media-icons {
   position: absolute;
   top: 0px;
-  left: 50%;
-  transform: translateX(-50%);
   font-size: 1.8em;
   padding: 1.5rem;
+  width: 100%;
+  text-align: center;
 }
 .climate-social-media-icons a {
   color: white;
