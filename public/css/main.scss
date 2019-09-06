@@ -1020,3 +1020,25 @@ body{
         margin: 1rem;
     }
 }
+
+.organisers-container{
+    padding-top: 60px;
+    padding-bottom: 60px;
+    background-color: #222;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.4);
+
+    color: white;
+    text-align: center;
+    .organisers{
+        display: inline-grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 3rem;
+        grid-row-gap: 1rem;
+
+        font-size: 1.4rem;
+
+        img{
+            height: 6rem;
+        }
+    }
+}
