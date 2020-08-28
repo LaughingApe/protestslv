@@ -8,6 +8,7 @@ parameters:
     uploads_directory: '%kernel.project_dir%/public/assets/uploads/'
     app.locales: 'lv|en'
 
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -28,6 +29,6 @@ services:
 
     adminController:
         class: App\Controller\ArticleController
-
+        
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
