@@ -284,7 +284,11 @@ body {
   }
 }
 
-.welcome-view {
+.welcome-wrapper {
+  width: 100%;
+  display: flex;
+}
+.welcome-wrapper .welcome-view {
   width: 100%;
   height: 100vh;
   background-image: url("/assets/images/landing.jpg");
@@ -294,21 +298,58 @@ body {
   align-items: center;
   padding: 10%;
 }
-.welcome-view .content {
+.welcome-wrapper .welcome-view .content {
   color: white;
 }
-.welcome-view .content .pusher {
+.welcome-wrapper .welcome-view .content .pusher {
   height: 50px;
 }
-.welcome-view .content h1 {
+.welcome-wrapper .welcome-view .content h1 {
   margin: 5px 0px;
   font-size: 3em;
   font-family: "HK Grotesk", sans-serif;
 }
-.welcome-view .content div.subheader {
+.welcome-wrapper .welcome-view .content div.subheader {
   margin-bottom: 20px;
   font-size: 1.4em;
   font-family: "HK Grotesk", sans-serif;
+}
+.welcome-wrapper .subscribe-box {
+  width: 35%;
+  padding: 4rem 3rem;
+  padding-top: 35vh;
+  background-color: #54365c;
+  color: white;
+}
+.welcome-wrapper .subscribe-box h2 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+.welcome-wrapper .subscribe-box #mce-EMAIL {
+  border: 0px;
+  padding: 0.8rem;
+  width: 100%;
+  margin-bottom: 1.4rem;
+}
+.welcome-wrapper .subscribe-box #mc-embedded-subscribe {
+  width: 100%;
+  margin-bottom: 1.4rem;
+}
+.welcome-wrapper .subscribe-box .description {
+  color: #a585af;
+}
+.welcome-wrapper .subscribe-box .description a {
+  color: #a585af;
+  text-decoration: underline;
+}
+@media only screen and (max-width: 933px) {
+  .welcome-wrapper {
+    display: block;
+  }
+  .welcome-wrapper .subscribe-box {
+    width: 100%;
+    padding: 4rem;
+  }
 }
 
 .stripe {
