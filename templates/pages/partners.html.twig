@@ -14,18 +14,34 @@
         <div class="ui text container">
             <h1 class="ui horizontal divider huge header">{{ c[47]|raw }}</h1>
 
-            <div class="fyeg-box">
-                <img src="/assets/images/FYEG-logo-full.png" alt="Logo of Federation of Young European Greens"/>
-                <div class="description">
-                    {% if lang is same as('lv') %}
-                        Kopš 2019. gada 17. augusta "Protests" ir <a href="https://fyeg.org/" target="_blank">Eiropas jauno zaļo federācijas (FYEG)</a> kandidātdalīborganizācija.
-                    {% endif %}
-                    {% if lang is same as('en') %}
-                        Since August 17, 2019, "Protests" is a candidate member organisation of the <a href="https://fyeg.org/" target="_blank">Federation of Young European Greens</a>.
-                    {% endif %}
-                    {% if lang is same as('ru') %}
-                        С 17 августа 2019 "Protests" организация-кандидат <a href="https://fyeg.org/" target="_blank">Федерации молодых европейских зеленых (FYEG)</a>.
-                    {% endif %}
+            <div class="part-of-org-box">
+                <div class="org-box fyeg">
+                    <img src="/assets/images/FYEG-logo-full.png" alt="Logo of Federation of Young European Greens"/>
+                    <div class="description">
+                        {% if lang is same as('lv') %}
+                            Kopš 2019. gada 17. augusta "Protests" ir <a href="https://fyeg.org/" target="_blank">Eiropas jauno zaļo federācijas (FYEG)</a> kandidātdalīborganizācija.
+                        {% endif %}
+                        {% if lang is same as('en') %}
+                            Since August 17, 2019, "Protests" is a candidate member organisation of the <a href="https://fyeg.org/" target="_blank">Federation of Young European Greens</a>.
+                        {% endif %}
+                        {% if lang is same as('ru') %}
+                            С 17 августа 2019 "Protests" организация-кандидат <a href="https://fyeg.org/" target="_blank">Федерации молодых европейских зеленых (FYEG)</a>.
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="org-box ljp">
+                    <img src="/assets/images/LJP-logo.png" alt="Latvijas jaunatnes padomes logo"/>
+                    <div class="description">
+                        {% if lang is same as('lv') %}
+                            Kopš 2019. gada 2. novembra "Protests" ir <a href="http://ljp.lv/" target="_blank">Latvijas Jaunatnes padomes</a> kandidātdalīborganizācija.
+                        {% endif %}
+                        {% if lang is same as('en') %}
+                            Since November 2, 2019, "Protests" is an associeted member of <a href="http://ljp.lv/" target="_blank">National Youth Concil of Latvia (LJP)</a>.
+                        {% endif %}
+                        {% if lang is same as('ru') %}
+                            С 2 ноября 2019 "Protests" ассоциированный член <a href="http://ljp.lv/" target="_blank">Латвийского Молодежного совета (LJP)</a>.
+                        {% endif %}
+                    </div>
                 </div>
             </div>
 
