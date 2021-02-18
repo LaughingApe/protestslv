@@ -25,7 +25,7 @@ use App\Entity\Content;
 class ContentController extends AbstractController{
     
     public function getContentCats(){
-        $cats = ['Not in use', 'Menu', 'Footer', 'News', 'Landing page', 'Documents', 'Join', 'Calendar', 'About us', 'Contact us', 'Donate', 'Partners', 'Privacy', 'Our people', 'General'];
+        $cats = ['Not in use', 'Menu', 'Footer', 'News', 'Landing page', 'Documents', 'Join', 'Calendar', 'About us', 'Contact us', 'Donate', 'Partners', 'Privacy', 'Our people', 'General', 'Logo'];
         return $cats;
     }
 

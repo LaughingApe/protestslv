@@ -200,6 +200,15 @@ class PagesController extends AbstractController
         ]);//*/
     }
 
+    public function logo(Request $request){
+        
+        return $this->render('pages/logo.html.twig', [
+            'controller_name' => 'PagesController',
+            'lang' => $request->getLocale(),
+            'c' =>  $this->getContentArray($request)
+        ]);//*/
+    }
+
     public function articles(Request $request){
         
         $repository = $this->getDoctrine()->getRepository(Article::class);

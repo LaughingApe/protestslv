@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+
+
+{% block title %}{{ c[69]|raw }} | {% endblock %}
+
+
+
+{% block body %}
+
+    {% include "nav.html.twig" %}
+
+    <div class="standard-content">
+        <div class="ui text container">
+            <h1 class="ui horizontal divider huge header">{{ c[69]|raw }}</h1>
+
+            <div class="plain-content">
+                {{ c[70]|raw }} 
+            </div>
+
+            <div><a href="/assets/images/logo2400x2400.png" target="_blank">Purple logo 2400x2400</a></div>
+            <img class="logo-for-download" alt="Purple logo 2400x2400" src="/assets/images/logo2400x2400.png" />
+
+
+            <div><a href="/assets/images/logo2400x2400white.png" target="_blank">White logo 2400x2400</a></div>
+            <img class="logo-for-download" alt="White logo 2400x2400" src="/assets/images/logo2400x2400white.png" />
+
+            <div><a href="/assets/images/logo500x500.png" target="_blank">Purple logo 500x500</a></div>
+            <img class="logo-for-download" alt="Purple logo 500x500" src="/assets/images/logo500x500.png" />
+            
+            <div><a href="/assets/images/logo500x500white.png" target="_blank">White logo 500x500</a></div>
+            <img class="logo-for-download" alt="White logo 500x500" src="/assets/images/logo500x500white.png" />
+
+
+            <div><a href="/assets/images/logo800purple-o.png" target="_blank">Purple logo 800px wide, transparent background</a> (<a href="/assets/images/protests.svg" target="_blank">svg</a>)</div>
+            <img class="logo-for-download" alt="Purple logo, transparent background 800px wide" src="/assets/images/logo800purple-o.png" />
+
+            <div><a href="/assets/images/logo800white-o.png" target="_blank">White logo 800px wide, transparent background</a> (<a href="/assets/images/protestswhite.svg" target="_blank">svg</a>)</div>
+            <img class="logo-for-download" alt="White logo, transparent background 800px wide" src="/assets/images/logo800white-o.png" />
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+{% include "navjs.html.twig" %}
+{% endblock %}

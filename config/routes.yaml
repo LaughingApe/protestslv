@@ -129,6 +129,14 @@ privacy:
     requirements:
       _locale: '%app.locales%'
 
+logo:
+    path: /{_locale}/logo
+    controller: App\Controller\PagesController::logo
+    defaults:
+      _locale: lv
+    requirements:
+      _locale: '%app.locales%'
+
 climateMarch:
     path: /gajiensnakotnei
     controller: App\Controller\PagesController::climateMarch
