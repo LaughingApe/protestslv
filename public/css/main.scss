@@ -35,7 +35,7 @@ $facebook: #3b5998;
 $twitter: #2795e9;
 $instagram: #395c79;
 $fyegGreen: #128C3B;
-$ljpBlue: #3a73e6;
+$ljpColor: black;
 $fffGreen: #1a7240;
 
 *{
@@ -744,7 +744,7 @@ body{
         border: 10px solid $fyegGreen;
     }
     &.ljp{
-        border: 10px solid #ff8418;
+        border: 10px solid $ljpColor;
     }
 
     img{
