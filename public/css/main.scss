@@ -36,6 +36,8 @@ $twitter: #2795e9;
 $instagram: #395c79;
 $fyegGreen: #128C3B;
 $ljpColor: black;
+$proColor: #E64632;
+$cdnColor: #45b649;
 $fffGreen: #1a7240;
 
 *{
@@ -45,6 +47,7 @@ $fffGreen: #1a7240;
 
 body{
     min-height: 100vh;    
+    background-color: #1b1c1d;
 }
 
 
@@ -746,6 +749,12 @@ body{
     &.ljp{
         border: 10px solid $ljpColor;
     }
+    &.pro{
+        border: 10px solid $proColor;
+    }
+    &.cdn{
+        border: 10px solid $cdnColor;
+    }
 
     img{
         display: block;
@@ -755,7 +764,7 @@ body{
 
     .description{
         padding-left: 20px;
-
+        padding-right: 10px;
 
         font-size: 1.1em;
         color: black;;
@@ -899,6 +908,8 @@ body{
 .standard-content{
     padding-top: 130px;
     padding-bottom: 30px;
+
+    background-color: white;
 
     .ui.header{
         margin: 30px 0px;

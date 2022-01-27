@@ -23,7 +23,8 @@
   font-family: "HK Grotesk", sans-serif; }
 
 body {
-  min-height: 100vh; }
+  min-height: 100vh;
+  background-color: #1b1c1d; }
 
 .button {
   font-family: "HK Grotesk", sans-serif;
@@ -511,12 +512,17 @@ body {
     border: 10px solid #128C3B; }
   .org-box.ljp {
     border: 10px solid black; }
+  .org-box.pro {
+    border: 10px solid #E64632; }
+  .org-box.cdn {
+    border: 10px solid #45b649; }
   .org-box img {
     display: block;
     height: 160px;
     margin: 1rem; }
   .org-box .description {
     padding-left: 20px;
+    padding-right: 10px;
     font-size: 1.1em;
     color: black; }
     .org-box .description a {
@@ -616,7 +622,8 @@ body {
 
 .standard-content {
   padding-top: 130px;
-  padding-bottom: 30px; }
+  padding-bottom: 30px;
+  background-color: white; }
   .standard-content .ui.header {
     margin: 30px 0px;
     font-family: "HK Grotesk", sans-serif; }
