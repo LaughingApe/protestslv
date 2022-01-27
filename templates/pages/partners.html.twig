@@ -12,7 +12,7 @@
 
     <div class="standard-content">
         <div class="ui text container">
-            <h1 class="ui horizontal divider huge header">{{ c[47]|raw }}</h1>
+            <h1 class="ui horizontal divider huge header">{{ c[71]|raw }}</h1>
 
             <div class="part-of-org-box">
                 <div class="org-box fyeg">
@@ -29,6 +29,25 @@
                         {% endif %}
                     </div>
                 </div>
+                <div class="org-box pro">
+                    <img src="/assets/images/Progresivie-logo.png" alt="Progresivie logo"/>
+                    <div class="description">
+                        {% if lang is same as('lv') %}
+                            Kopš 2022. gada 27. janvāra mums ir sadarbības vienošanās ar partiju <a href="https://www.progresivie.lv/" target="_blank">PROGRESĪVIE</a>. Vienošanos atradīsiet sadaļā <a href="https://www.protests.eu/lv/documents" target="_blank">Dokumenti</a>.
+                        {% endif %}
+                        {% if lang is same as('en') %}
+                            Since January 27, 2022, we have a cooperation agreement with political party <a href="https://www.progresivie.lv/" target="_blank">The Progressvies</a>. You can find the agreement in the <a href="https://www.protests.eu/en/documents" target="_blank">Documents</a> section.
+                        {% endif %}
+                        {% if lang is same as('ru') %}
+                            С 27 января 2022 у нас есть договор о сотрудничестве с <a href="https://www.progresivie.lv/" target="_blank">Прогрессивными</a>. С договором можно ознакомиться в разделе <a href="https://www.protests.eu/ru/documents" target="_blank">Документы</a>.
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="ui horizontal divider huge header">{{ c[64]|raw }}</h1>
+
+            <div class="part-of-org-box">
                 <div class="org-box ljp">
                     <img src="/assets/images/LJP-logo.png" alt="Latvijas jaunatnes padomes logo"/>
                     <div class="description">
@@ -36,16 +55,28 @@
                             Kopš 2019. gada 2. novembra "Protests" ir <a href="http://ljp.lv/" target="_blank">Latvijas Jaunatnes padomes</a> kandidātdalīborganizācija.
                         {% endif %}
                         {% if lang is same as('en') %}
-                            Since November 2, 2019, "Protests" is an associeted member of <a href="http://ljp.lv/" target="_blank">National Youth Concil of Latvia (LJP)</a>.
+                            Since November 2, 2019, "Protests" is an associated member of <a href="http://ljp.lv/" target="_blank">National Youth Concil of Latvia (LJP)</a>.
                         {% endif %}
                         {% if lang is same as('ru') %}
                             С 2 ноября 2019 "Protests" ассоциированный член <a href="http://ljp.lv/" target="_blank">Латвийского Молодежного совета (LJP)</a>.
                         {% endif %}
                     </div>
                 </div>
+                <div class="org-box cdn">
+                    <img src="/assets/images/CDN-logo.png" alt="CDN logo"/>
+                    <div class="description">
+                        {% if lang is same as('lv') %}
+                            Kopš 2020. gada 10. marta "Protests" ir <a href="https://www.cdnee.org/" target="_blank">Cooperation and Development network</a> partnerorganizācija.
+                        {% endif %}
+                        {% if lang is same as('en') %}
+                            Since March 10, 2020, "Protests" is a partner organisation of <a href="https://www.cdnee.org/" target="_blank">Cooperation and Development network</a>.
+                        {% endif %}
+                        {% if lang is same as('ru') %}
+                            С 10 марта 2020 "Protests" является партнерской организацией <a href="https://www.cdnee.org/" target="_blank">Cooperation and Development network</a>.
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-
-            <h1 class="ui big centered header">{{ c[64]|raw }}</h1>
 
             <div class="partner-list">
                 {% for partner in partners %}
