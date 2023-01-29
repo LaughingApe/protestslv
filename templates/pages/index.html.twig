@@ -107,36 +107,8 @@
     
     <div class="white stripe">
         <div class="ui text container">
-            <h1 class="ui horizontal divider header">{{ c[42]|raw }}</h1>
-                
-                {% if ( ongoing is same as(true) ) or ( upcoming is same as(true) ) %}
-                <div class="event-list">
-                    {% for event in events %}
-                        {% if ( event.finished is same as(1) ) or ( event.finished is same as(0) ) %}
-                        <div class="date-box">
-                            <div class="top">{{ event.time0 }}</div>
-                            <div class="bottom">{{ event.time1 }}</div>
-                        </div>
-                        <div>
-                            <a href="{{ path('event', {id: event.id}) }}" class="header">{{ event.title }}</a>
-                            <p class="details">
-                                <i class="fas fa-map-marker"></i> {{ event.location }}
-                                {% if ( event.finished is same as(1) ) %}<span class="happening-now">Notiek tagad</span>{% endif %}
-                            </p>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                {% else %}
-                    <div class="centered-content-container" style="margin-top: 25px; margin-bottom: 35px; font-size:1.1em;">
-                        <i>{{ c[62]|raw }}</i>
-                    </div>
-                {% endif %}
-
-                <div class="centered-content-container">
-                    <a href="{{ path('events') }}" class="button dark">{{ c[63]|raw }}</a>
-                </div>
-
+            <p class="quotation"><i class="fas fa-quote-left"></i> {{ c[72]|raw }}</p>
+            <p class="quotation-ref">{{ c[73]|raw }}</p>
         </div>
 
     </div>

@@ -15,7 +15,6 @@
   <div class="item">Welcome, <b>{{ user.username }}</b>!</div>
   <a class="item" href="{{ path('adminIndex') }}">Home</a>
   <a class="item" href="{{ path('adminArticles') }}">Articles</a>
-  <a class="item" href="{{ path('adminEvents') }}">Events</a>
   {% if is_granted('ROLE_ADMIN')   %}
   <a class="item" href="{{ path('adminContents') }}">Website Content</a>
   <a class="item" href="{{ path('adminDocuments') }}">Documents</a>
