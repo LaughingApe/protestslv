@@ -32,14 +32,13 @@
         <div class="ui inverted horizontal link list">
           {% if lang is not same as('lv') %}<a class="item" href="{{ path(route, params|merge({ _locale: 'lv' })) }}">Latviski</a>{% endif %}
           {% if lang is not same as('en') %}<a class="item" href="{{ path(route, params|merge({ _locale: 'en' })) }}">English</a>{% endif %}
-          {% if lang is not same as('ru') %}<a class="item" href="{{ path(route, params|merge({ _locale: 'ru' })) }}">По-русски</a>{% endif %}
         </div>
         <div class="ui inverted link list">
           <p class="item">
             {% if lang is same as('lv') %}Interneta vietni veidoja{% endif %}
             {% if lang is same as('en') %}Website created by{% endif %}
             {% if lang is same as('ru') %}Эту страницу создал{% endif %}
-            Niks Derums · 2019—2022
+            Niks Derums · 2019—2024
           </p>
           <p class="item">
             <a href="{{ path('logo') }}" class="ui footer-link">{{ c[69] }}</a> · <a href="{{ path('privacy') }}" class="ui footer-link">{{ c[55] }}</a>

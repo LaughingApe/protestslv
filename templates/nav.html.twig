@@ -29,7 +29,6 @@
         <div class="language-stack">
             {% if lang is not same as('lv') %}<a href="{{ path(route, params|merge({ _locale: 'lv' })) }}">Lat</a>{% endif %}
             {% if lang is not same as('en') %}<a href="{{ path(route, params|merge({ _locale: 'en' })) }}">Eng</a>{% endif %}
-            {% if lang is not same as('ru') %}<a href="{{ path(route, params|merge({ _locale: 'ru' })) }}">Рус</a>{% endif %}
         </div>
     </div>
     <div class="nav-button-box">
