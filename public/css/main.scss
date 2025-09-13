@@ -33,6 +33,7 @@ $violetDarker: #402c46;
 $violetLight: #a585af;
 $facebook: #3b5998;
 $twitter: #2795e9;
+$tiktok: #ff0050;
 $instagram: #395c79;
 $fyegGreen: #28b97d;
 $ljpColor: black;
@@ -607,8 +608,8 @@ body{
             &.fb{
                 background-color: $facebook;
             }
-            &.tw{
-                background-color: $twitter;
+            &.tt{
+                background-color: $tiktok;
             }
             &.ig{
                 background-color: $instagram;
