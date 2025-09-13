@@ -35,6 +35,8 @@ $facebook: #3b5998;
 $twitter: #2795e9;
 $tiktok: #ff0050;
 $instagram: #395c79;
+$threads: #000000;
+$bluesky: #1185FE;
 $fyegGreen: #28b97d;
 $ljpColor: black;
 $proColor: #f93a1c;
@@ -582,8 +584,6 @@ body{
 
 .socmedia-block{
     display: flex;
-    width: 60%;
-    margin: auto 20%;
     justify-content: space-evenly;
 
     @media only screen and (max-width: 723px) {
@@ -613,6 +613,12 @@ body{
             }
             &.ig{
                 background-color: $instagram;
+            }
+            &.th{
+                background-color: $threads;
+            }
+            &.bs{
+                background-color: $bluesky;
             }
         }
     }
