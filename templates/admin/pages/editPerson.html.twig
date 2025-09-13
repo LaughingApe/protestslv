@@ -71,6 +71,34 @@
                         {{ form_help(form.description) }}
                     </div>
 
+                    <div class="field">
+                        {{ form_label(form.posten) }}
+                        {{ form_errors(form.posten) }}
+                        {{ form_widget(form.posten) }}
+                        {{ form_help(form.posten) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.descriptionen) }}
+                        {{ form_errors(form.descriptionen) }}
+                        {{ form_widget(form.descriptionen, { 'attr' : { 'class': 'summernote' } }) }}
+                        {{ form_help(form.descriptionen) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.postru) }}
+                        {{ form_errors(form.postru) }}
+                        {{ form_widget(form.postru) }}
+                        {{ form_help(form.postru) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_label(form.descriptionru) }}
+                        {{ form_errors(form.descriptionru) }}
+                        {{ form_widget(form.descriptionru, { 'attr' : { 'class': 'summernote' } }) }}
+                        {{ form_help(form.descriptionru) }}
+                    </div>
+
                     {{ form_widget(form.save, { 'attr' : { 'class': 'ui blue button' } }) }}
 
                 {{ form_end(form) }}

@@ -19,8 +19,17 @@
                     <div class="person">
                         <div class="img" style="background-image: URL('/assets/uploads/{{ person.image }}');"></div>
                         <h3 class="ui header name">{{ person.name }}</h3>
-                        <div class="sub header">{{ person.post }}</div>
-                        <div class="descr">{{ person.description|raw }}</div>
+                        {# TODO: Add language switcher for post and description #}
+                        {% if lang == 'en' and person.posten is not empty %}
+                            <div class="sub header">{{ person.posten }}</div>
+                            <div class="descr">{{ person.descriptionen|raw }}</div>
+                        {% elseif lang == 'ru' and person.postru is not empty %}
+                            <div class="sub header">{{ person.postru }}</div>
+                            <div class="descr">{{ person.descriptionru|raw }}</div>
+                        {% else %}
+                            <div class="sub header">{{ person.post }}</div>
+                            <div class="descr">{{ person.description|raw }}</div>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

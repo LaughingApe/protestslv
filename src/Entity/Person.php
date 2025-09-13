@@ -36,6 +36,28 @@ class Person
      */
     private $description;
 
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $posten;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $descriptionen;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $postru;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $descriptionru;
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -90,6 +112,55 @@ class Person
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+
+    public function getPostEn(): ?string
+    {
+        return $this->posten;
+    }
+
+    public function setPostEn(?string $posten): self
+    {
+        $this->posten = $posten;
+
+        return $this;
+    }
+
+    public function getDescriptionEn(): ?string
+    {
+        return $this->descriptionen;
+    }
+
+    public function setDescriptionEn(?string $descriptionen): self
+    {
+        $this->descriptionen = $descriptionen;
+
+        return $this;
+    }
+
+    public function getPostRu(): ?string
+    {
+        return $this->postru;
+    }
+
+    public function setPostRu(?string $postru): self
+    {
+        $this->postru = $postru;
+
+        return $this;
+    }
+
+    public function getDescriptionRu(): ?string
+    {
+        return $this->descriptionru;
+    }
+
+    public function setDescriptionRu(?string $descriptionru): self
+    {
+        $this->descriptionru = $descriptionru;
 
         return $this;
     }
