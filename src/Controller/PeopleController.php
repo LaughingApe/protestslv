@@ -116,10 +116,10 @@ class PeopleController extends AbstractController{
             ->add('image', FileType::class, array('required' => false))
             ->add('post', TextType::class)
             ->add('description', TextareaType::class, array('label' => 'Description'))
-            ->add('posten', TextType::class, array('label' => 'Post (English)'))
-            ->add('descriptionen', TextareaType::class, array('label' => 'Description (English)'))
-            ->add('postru', TextType::class, array('label' => 'Post (Russian)'))
-            ->add('descriptionru', TextareaType::class, array('label' => 'Description (Russian)'))
+            ->add('posten', TextType::class, array('label' => 'Post (English)', 'required' => false))
+            ->add('descriptionen', TextareaType::class, array('label' => 'Description (English)', 'required' => false))
+            ->add('postru', TextType::class, array('label' => 'Post (Russian)', 'required' => false))
+            ->add('descriptionru', TextareaType::class, array('label' => 'Description (Russian)', 'required' => false))
             ->add('save', SubmitType::class, array('label' => 'Save'))
             ->getForm();
             
